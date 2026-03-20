@@ -1,0 +1,52 @@
+.menuBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 10px;
+  padding: 10px;
+
+  border: solid 1px;
+}
+
+.navigateBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+  padding: 10px;
+
+  border: solid 1px;
+}
+
+.tableCountContainer {
+  display: flex;
+  flex-direction: row;
+
+  gap: 10px;
+  padding: 10px;
+  
+  border: solid 1px;
+
+  height: 10em;
+}
+
+.countButtonBox {
+  display: flex;
+  
+  border: solid 1px;
+
+}
+
+.button {
+  border-radius: 10px;
+  background-color: none;
+}
+
+.button:hover {
+  background-color: white;
+  color: black;
+}

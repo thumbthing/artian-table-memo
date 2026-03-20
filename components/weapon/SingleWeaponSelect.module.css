@@ -1,0 +1,42 @@
+/* TODO : grid fr 정리 */
+.container {
+  display: grid;
+  width: 60vw;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.weaponBox {
+  display: flex;
+  justify-content: center;
+  margin: 2px;
+}
+
+.weaponElementBox {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.elementHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+.singleElementAdvance {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.singleElementHeader {
+  display: flex;
+  justify-content: center;
+  margin: 2px;
+}
+
+.singleElementSettingBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

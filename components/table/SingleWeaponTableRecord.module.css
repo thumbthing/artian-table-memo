@@ -1,0 +1,92 @@
+.box {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  border: 1px solid;
+  border-radius: 25px;
+}
+
+.weaponNameBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  width: 10vw;
+  padding: 10px;
+  border: solid grey;
+  border-radius: 10px;
+}
+
+.elementBox {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 1px;
+  margin: 5px;
+}
+
+
+/* 속성 / 확인 갯수 */
+.singleElement {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 5px;
+  gap: 5px;
+  width: 10vw;
+  height: 3vw;
+  border-radius: 25px;
+}
+
+.elementText {
+  text-align: center;
+}
+
+.fire {
+  border: 1px solid;
+  border-color: red;
+}
+
+.water {
+  border: 1px solid;
+  border-color: blue;
+}
+
+.electric {
+  border: 1px solid;
+  border-color: yellow;
+}
+
+.ice {
+  border: 1px solid;
+  border-color: aquamarine;
+}
+
+.dragon {
+  border: 1px solid;
+  border-color: blueviolet;
+}
+
+.poison {
+  border: 1px solid;
+  border-color: purple;
+}
+
+.paralyze {
+  border: 1px solid;
+  border-color: gold;
+}
+
+.sleep {
+  border: 1px solid;
+  border-color: cadetblue;
+}
+
+.explosion {
+  border: 1px solid;
+  border-color: orange;
+}
+
+.none {
+  border: 1px solid;
+  border-color: gray;
+}

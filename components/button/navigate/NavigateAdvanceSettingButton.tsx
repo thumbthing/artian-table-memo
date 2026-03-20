@@ -1,0 +1,32 @@
+"use client";
+
+import { useAppSelector } from "@/app/hooks";
+import { ROUTE } from "@/global/data/routeData";
+import { useRouter } from "next/navigation";
+
+export default function NavigateAdvanceSettingButton() {
+  const buttonText = "무기 격화 세팅"
+
+  const advanceSettingParam = useAppSelector(state => state.urlParam.advanceSettingParam);
+  const router = useRouter();
+
+  const navigateToAdvanceSetting = () => {
+    const advanceSettingPath = `${window.location.origin}${ROUTE.advanceSetting}`;
+
+    if (advanceSettingParam === "") {
+      router.push(advanceSettingPath);
+      return;
+    }
+
+    const url = new URL(`?${advanceSettingParam}`, advanceSettingPath);
+
+    router.push(url.href);
+    return;
+  }
+
+  return (
+    <>
+      <input type="button" value={buttonText} onClick={() => {navigateToAdvanceSetting()}}/>
+    </>
+  )
+}

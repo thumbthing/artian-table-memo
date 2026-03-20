@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  margin: 10px;
+}
+
+.selectContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.selectHeader {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+}
+
+.selectListBox {
+  margin: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px
+}
