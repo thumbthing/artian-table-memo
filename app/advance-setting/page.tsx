@@ -3,13 +3,14 @@
 import { Provider } from "react-redux";
 import { store } from "../../feature/store/store";
 import AdvanceSettingPage from "@/components/page/advanceSetting/AdvanceSettingPage";
-import NavigationBar from "@/components/container/menuBar/navigationBar/NavigationBar";
-
+import { Suspense } from "react";
 
 export default function Page() {
   return (
-    <Provider store={store}>
-      <AdvanceSettingPage />
-    </Provider>
+    <Suspense fallback={<div>loading...</div>}>
+      <Provider store={store}>
+        <AdvanceSettingPage />
+      </Provider>
+    </Suspense>
   )
 }

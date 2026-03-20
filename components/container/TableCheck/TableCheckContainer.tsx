@@ -19,19 +19,19 @@ import { WEAPON_LIST } from "@/global/data/appData";
 export default function TableCheckContainer() {
   const router = useRouter();
   const searchParam = useSearchParams();
-
+  
   const weaponHydrateState = useAppSelector(state => state.weapon.hydrated);
   const weaponState = useAppSelector(state => state.weapon);
-
+  
   const dispatch = useAppDispatch();
-
+  
   useEffect(() => {
     try {
       if (weaponHydrateState === true) {
         thumbthingLog('setting', 'update 안함')
         return;
       }
-
+      
       const validParam = checkUrlParam();
 
       const urlWeaponList = createWeaponBinaryList(validParam.weapon);
@@ -77,9 +77,9 @@ export default function TableCheckContainer() {
   },[searchParam]);
 
   return (
-  <div className={style.recordContainer}>
-    <WeaponTableRecordBox />
-    <TableRecordList />
-  </div>
+    <div className={style.recordContainer}>
+      <WeaponTableRecordBox />
+      <TableRecordList />
+    </div>
   )
 }
