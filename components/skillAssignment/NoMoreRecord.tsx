@@ -12,7 +12,7 @@ export default function NoMoreRecord() {
 
   const handleOnClick = () => {
     dispatch(resetAllTarredTableState());
-    const tableCheckLocation = `${window.location.origin}${ROUTE.tableCheck}?${advanceParam}`
+    const tableCheckLocation = `${window.location.origin}${ROUTE.tableCheck}${advanceParam}`
     router.push(tableCheckLocation);
   }
 

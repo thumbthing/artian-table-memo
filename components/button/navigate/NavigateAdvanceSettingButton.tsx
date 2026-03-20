@@ -18,9 +18,7 @@ export default function NavigateAdvanceSettingButton() {
       return;
     }
 
-    const url = new URL(`?${advanceSettingParam}`, advanceSettingPath);
-
-    router.push(url.href);
+    router.push(`${advanceSettingPath}${advanceSettingParam}`);
     return;
   }
 
