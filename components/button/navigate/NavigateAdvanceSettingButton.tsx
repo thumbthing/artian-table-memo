@@ -3,6 +3,7 @@
 import { useAppSelector } from "@/app/hooks";
 import { ROUTE } from "@/global/data/routeData";
 import { useRouter } from "next/navigation";
+import style from "./NaviagateButton.module.css"
 
 export default function NavigateAdvanceSettingButton() {
   const buttonText = "무기 격화 세팅"
@@ -18,13 +19,13 @@ export default function NavigateAdvanceSettingButton() {
       return;
     }
 
-    router.push(`${advanceSettingPath}${advanceSettingParam}`);
+    router.push(`${advanceSettingPath}?${advanceSettingParam}`);
     return;
   }
 
   return (
     <>
-      <input type="button" value={buttonText} onClick={() => {navigateToAdvanceSetting()}}/>
+      <input type="button"  className={style.button} value={buttonText} onClick={() => {navigateToAdvanceSetting()}}/>
     </>
   )
 }

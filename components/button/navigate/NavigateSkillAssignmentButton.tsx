@@ -6,6 +6,7 @@ import { setSkillAssignmentDevice } from "@/feature/store/slices/tarred/tarredSl
 import { ROUTE } from "@/global/data/routeData";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
+import style from "./NaviagateButton.module.css"
 
 export default function NavigateSkillAssignmentButton() {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function NavigateSkillAssignmentButton() {
 
   return (
     <>
-      <button onClick={() => navigateToTableRecord()}>스킬 부여 페이지로 이동</button>
+      <input type="button" className={style.button} value={"스킬 부여로 이동"} onClick={() => navigateToTableRecord()}/>
     </>
   )
 }

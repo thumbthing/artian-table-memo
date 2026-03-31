@@ -4,12 +4,12 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { createBinaryCode, createWeaponAdvanceCode } from "@/feature/parse/encode/encodeState";
 import { WEAPON_LIST } from "@/global/data/appData";
 import { UrlStateType, WeaponType } from "@/global/type/appType";
-import { shallowEqual } from "react-redux";
 import { createAdvanceSettingParamString } from "@/feature/url/urlString/createUrlParam";
 import { useRouter } from "next/navigation";
 import { setHydrate } from "@/feature/store/slices/weapon/weaponSlice";
 import { ROUTE } from "@/global/data/routeData";
 import { setAdvanceSettingParam } from "@/feature/store/slices/urlParam/urlParamSlice";
+import style from "./NaviagateButton.module.css"
 
 export default function NavigateTableCheckButton() {
   // TODO: shallow equl 정리
@@ -19,7 +19,7 @@ export default function NavigateTableCheckButton() {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const buttonText = '설정 완료';
+  const buttonText = "테이블 확인으로 이동";
 
   const getAdvanceCodeList = () => {
     const advanceCodeList: Partial<Record<WeaponType, number>>[] = WEAPON_LIST.map((singleWeapon: WeaponType) => {
@@ -46,12 +46,12 @@ export default function NavigateTableCheckButton() {
     dispatch(setHydrate(true));
     const urlTableCheck = `${window.location.origin}${ROUTE.tableCheck}`
 
-    router.push(`${urlTableCheck}${urlParam}`)
+    router.push(`${urlTableCheck}?${urlParam}`)
   }
 
   return (
     <>
-      <input type="button" value={buttonText} onClick={() => navigateToTableCheck()}/>
+      <input type="button" className={style.button} value={buttonText} onClick={() => navigateToTableCheck()}/>
     </>
   )
 }
