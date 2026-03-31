@@ -21,7 +21,6 @@ export default function TableCheckContainer() {
   const searchParam = useSearchParams();
   
   const weaponHydrateState = useAppSelector(state => state.weapon.hydrated);
-  const weaponState = useAppSelector(state => state.weapon);
   
   const dispatch = useAppDispatch();
   
