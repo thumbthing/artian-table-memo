@@ -2,13 +2,12 @@
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { ElementType, WeaponType } from "@/global/type/appType"
-import { AdvanceSettingType } from "@/global/type/extendedType";
-import { useEffect, useState } from "react";
+import { AdvanceSettingType, TableRecordType } from "@/global/type/extendedType";
+import { Fragment, useEffect, useState } from "react";
 import { getTypedObjectKeys } from "@/feature/customFeature/object/objectParse";
 import style from "./SingleWeaponTableRecord.module.css"
 import { ELEMENT_CODE } from "@/global/data/appData";
 import { getDefaultRecordState } from "@/feature/store/slices/table/tableSlice";
-import { getTableRecordTotalAmount } from "@/feature/calculate/tarredDevice/getTableCheckAmount";
 
 interface SingleWeaponTableRecordProps {
   weaponName: WeaponType;
@@ -25,22 +24,22 @@ interface ElementTableRecodrProps {
   }
 }
 
-// function getTableCheckAmount(deviceAmount: number, advanceSetting: boolean) {
-//   const divideNumber = advanceSetting ? 3 : 6;
-//   return Math.floor(deviceAmount / divideNumber);
-// }
-
 function ElementTableRecord({weaponName, elementName, advanceSetting}: ElementTableRecodrProps) {
-  const device = useAppSelector(state => state.tarred.input)
+  const tableRecord = useAppSelector(state => state.table.tableRecordList);
   const dispatch = useAppDispatch();
 
-  const [tableRecordAmount, setTableRecordAmount] = useState<number>(0);
+  const [elementTableRecord, setElementTableRecord] = useState<TableRecordType[]>([]);
 
+  
+  
   useEffect(() => {
-    const tableRecordAmount = getTableRecordTotalAmount(device, advanceSetting);
+    const filterdTableRecord = tableRecord.filter(table => table.weaponName === weaponName && table.elementName === elementName)
 
-    setTableRecordAmount(tableRecordAmount)
-  }, [device]);
+    if (filterdTableRecord.length === elementTableRecord.length) return;
+
+    setElementTableRecord(filterdTableRecord)
+
+  }, [tableRecord]);
 
   const handleOnClick = () => {
     const recordState = {
@@ -52,16 +51,14 @@ function ElementTableRecord({weaponName, elementName, advanceSetting}: ElementTa
     dispatch(getDefaultRecordState(recordState))
   }
 
-  if (tableRecordAmount > 0) {
-    return (
-      <label>
-        <div className={`${style.singleElement} ${style[ELEMENT_CODE[elementName]]}`} onClick={() => handleOnClick()}>
-          <p>{elementName}</p>
-          <p>{tableRecordAmount}</p>
-        </div>
-      </label>
-    )
-  }
+  return (
+    <label>
+      <div className={`${style.singleElement} ${style[ELEMENT_CODE[elementName]]}`} onClick={() => handleOnClick()}>
+        <p>{elementName}</p>
+        <p>{elementTableRecord.length}</p>
+      </div>
+    </label>
+  )
 }
 
 export default function SingleWeaponTableRecord({weaponName, elementSetting}: SingleWeaponTableRecordProps) {
@@ -69,17 +66,17 @@ export default function SingleWeaponTableRecord({weaponName, elementSetting}: Si
 
   return (
     <div className={style.box}>
-      <div className={style.weaponNameBox}>
+      <h3 className={style.weaponNameBox}>
         {weaponName}
-      </div>
+      </h3>
       <div className={style.elementBox}>
         {
           elementList.map(element => {
             if (elementSetting[element]) {
               return (
-                <div key={`${weaponName}-${element}`}>
+                <Fragment key={`${weaponName}-${element}`}>
                   <ElementTableRecord weaponName={weaponName} elementName={element} advanceSetting={elementSetting[element]}/>
-                </div>
+                </Fragment>
               )
             }
           })
