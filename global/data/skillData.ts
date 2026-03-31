@@ -22,6 +22,7 @@ export const SERIES_SKILL = [
   "흑식룡의 힘"
 ];
 
+// length = 21
 export const ORDERED_SERIES_SKILL = [
   "거극룡의 묵시록",
   "흑식룡의 힘",
@@ -91,6 +92,8 @@ export const GROUP_SKILL = [
   "주인의 혼"
 ];
 
+
+// length = 14
 export const ORDERED_GROUP_SKILL = [
   "주인의 혼",
   "가죽세공의 광택성",
