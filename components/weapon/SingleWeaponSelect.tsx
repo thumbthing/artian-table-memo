@@ -2,10 +2,11 @@
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { removeWeapon, setWeaponSetting } from "@/feature/store/slices/weapon/weaponSlice";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { WeaponType, ElementType, AdvanceType } from "@/global/type/appType";
-import { ELEMENT_LIST } from "@/global/data/appData";
+import { ADVANCE_CODE, ELEMENT_LIST, TARRED_DEVICE_ADVANCE_LIST } from "@/global/data/appData";
 import style from "./SingleWeaponSelect.module.css"
+import { getTypedObjectValues } from "@/feature/customFeature/object/objectParse";
 
 interface WeaponProps {
   weaponName: WeaponType;
@@ -14,6 +15,23 @@ interface WeaponProps {
 interface ElementFocusProps {
   weaponName: WeaponType;
   element: ElementType;
+}
+
+interface AdvanceCheckedButtonProps {
+  advanceCode: AdvanceType;
+  isChecked: boolean;
+  updateAdvance: (advanceName: AdvanceType) => void
+}
+
+function AdvanceCheckedButton({advanceCode, isChecked, updateAdvance}: AdvanceCheckedButtonProps) {
+  const buttonStyle = isChecked ? style[`${advanceCode}SettingLabel`] : style[`advanceUnChecked`];
+  const advanceName = ADVANCE_CODE[advanceCode];
+
+  return (
+    <div className={buttonStyle} onClick={() => updateAdvance(advanceCode)}>
+      <p>{advanceName}</p>
+    </div>
+  )
 }
 
 type CheckType = Record<AdvanceType, boolean>;
@@ -45,44 +63,47 @@ function SingleElementAdvanceSetting({weaponName, element}: ElementFocusProps) {
     dispatch(setWeaponSetting(advanceSetting))
   }
 
+  const setAllAdvance = () => {
+    const newCheck = {
+      attack: true,
+      affinity: true,
+      element: true
+    };
+
+    const isAllChecked = [...getTypedObjectValues(check)].every(check => check === true);
+
+    if (isAllChecked) {
+      newCheck.attack = false;
+      newCheck.affinity = false;
+      newCheck.element = false;
+    }
+
+    const advanceSetting = {
+      weapon: weaponName,
+      element: element,
+      advance: newCheck
+    }
+
+    setCheck(newCheck);
+    dispatch(setWeaponSetting(advanceSetting))
+  }
+
   return (
-    <div className={style.singleElementAdvance}>
-        {/* <p onClick={() => setAdvance(!advance)}>{element}</p> */}
-      <div className={style.singleElementHeader}>{element}</div>
-      {/* {advance &&  */}
-      <div className={style.singleElementSettingBox}>
-        <label>
-          공격
-          <input 
-            type="checkbox" 
-            id={`${element}-attack`} 
-            value="attack" 
-            onChange={() => updateAdvance("attack")}
-            checked={check.attack}
-            />
-        </label>
-        <label>
-          회심
-          <input 
-            type="checkbox" 
-            id={`${element}-affinity`} 
-            value="affinity" 
-            onChange={() => updateAdvance("affinity")}
-            checked={check.affinity}
-            />
-        </label>
-        <label>
-          속성
-          <input 
-            type="checkbox" 
-            id={`${element}-element`} 
-            value="element" 
-            onChange={() => updateAdvance("element")}
-            checked={check.element}
-            />
-        </label>
+    <div className={style.singleElementAdvanceBox}>
+      <div className={style.singleElementHeaderBox} onClick={() => {setAllAdvance()}}>
+          <p className={style.singleElementHeaderText}>{element}</p>
       </div>
-      {/* } */}
+      <div className={style.singleElementSettingBox}>
+    {
+      TARRED_DEVICE_ADVANCE_LIST.map((advance, index) => {
+        return (
+        <Fragment key={`advance-checked-${advance}-${index}`}>
+          <AdvanceCheckedButton advanceCode={advance} isChecked={check[advance]} updateAdvance={updateAdvance} />
+        </Fragment>
+        )
+      })
+    }
+      </div>
     </div>
   )
 }
@@ -90,16 +111,16 @@ function SingleElementAdvanceSetting({weaponName, element}: ElementFocusProps) {
 function ElementList({weaponName}: WeaponProps) {
   const dispatch = useAppDispatch();
   return (
-    <div key={weaponName}>
-      <div className={style.elementHeader}>
-        <p>{weaponName}</p>
-        <input type="button" value={"삭제"} onClick={() => dispatch(removeWeapon(weaponName))} />
+    <div className={style.weaponBox}>
+      <div className={style.weaponHeader}>
+        <p className={style.weaponHeaderText}>{weaponName}</p>
+        <input className={style.weaponDeleteButton} type="button" value={"삭제"} onClick={() => dispatch(removeWeapon(weaponName))} />
       </div>
       <div className={style.weaponElementBox}>
         {ELEMENT_LIST.map((element) => 
-          <div key={`${weaponName}-${element}`}>
+          <Fragment key={`${weaponName}-${element}`}>
             <SingleElementAdvanceSetting weaponName={weaponName} element={element} />
-          </div>
+          </Fragment>
         )}
       </div>
     </div>
@@ -111,10 +132,11 @@ export default function WeaponAdvanceSettingList() {
 
   return (
     <div className={style.container}>
-      {weaponList.map((singleWeapon: WeaponType) => 
-      <div className={style.weaponBox} key={`weapon-${singleWeapon}`}>
+    {weaponList.map((singleWeapon: WeaponType) => 
+      <Fragment key={`weapon-${singleWeapon}`}>
         <ElementList weaponName={singleWeapon} />
-      </div>)}
+      </Fragment>
+    )}
     </div>
   )
 }
