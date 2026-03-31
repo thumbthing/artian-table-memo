@@ -7,6 +7,7 @@ import { setInputAllDevice } from "@/feature/store/slices/tarred/tarredSlice";
 import { ADVANCE_CODE } from "@/global/data/appData";
 import { AdvanceType, TarredDeviceType } from "@/global/type/appType";
 import { ChangeEvent, useRef, useState } from "react";
+import style from "./DeviceInput.module.css"
 
 interface TarredDeviceInputProps {
   deviceKey: AdvanceType,
@@ -25,26 +26,22 @@ function TarredDeviceInput({deviceKey, isSetting, tarred}: TarredDeviceInputProp
   const debounceInputChange = debounce(handleInput, 500);
 
   return (
-    <div>
-      <label htmlFor={deviceKey}>
-        <div>
-        {isSetting ? 
-          <p>
-          {ADVANCE_CODE[deviceKey]} : 
-          <input 
-            id={deviceKey}
-            type="number"
-            name={deviceKey}
-            placeholder={`기존 장치 : ${tarred[deviceKey]}`}
-            onChange={(e) => debounceInputChange(e)}
-            autoComplete="false"
+    <div className={style.inputContainer}>
+      <label className={style.inputLabel} htmlFor={deviceKey}>
+        <div className={style.inputBox}>
+          <p className={style.inputArea}>
+            {ADVANCE_CODE[deviceKey]} : 
+            <input 
+              className={style.input}
+              id={deviceKey}
+              type="number"
+              name={deviceKey}
+              placeholder={`기존 : ${tarred[deviceKey]}`}
+              onChange={(e) => debounceInputChange(e)}
+              autoComplete="false"
+              disabled={!isSetting}
             />
           </p>
-        :
-          <p>
-            {ADVANCE_CODE[deviceKey]} : {tarred[deviceKey]}
-          </p>
-        }
         </div>
       </label>
     </div>
@@ -69,18 +66,20 @@ export default function DeviceInputBox() {
   }
 
   return (
-    <div>
-      <div>
-        <p>
-          입력 잠금 :
-          <input type="checkbox" checked={!isSetting} onChange={() => setIsSetting(!isSetting)}/>
-        </p>
-      </div>
-      <form onSubmit={(e) => handleSubmit(e)}>
+    <div className={style.box}>
+      <h1 className={style.boxHeaderText}>테이블 확인</h1>
+      <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
+        <h2 className={style.deviceFormHeaderText}>부식된 장치</h2>
         <TarredDeviceInput deviceKey={"attack"} isSetting={isSetting} tarred={tarredDevice}/>
         <TarredDeviceInput deviceKey={"affinity"} isSetting={isSetting} tarred={tarredDevice}/>
         <TarredDeviceInput deviceKey={"element"} isSetting={isSetting} tarred={tarredDevice}/>
-        <input type="submit" value={"설정"} disabled={!isSetting}/>
+        <div className={style.submitBox}>
+          <input className={style.submitButton} type="submit" value={"설정"} disabled={!isSetting}/>
+          <p className={style.submitLock}>
+            잠금
+            <input type="checkbox" checked={!isSetting} onChange={() => setIsSetting(!isSetting)}/>
+          </p>
+        </div>
       </form>
     </div>
   )
