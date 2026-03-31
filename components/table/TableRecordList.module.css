@@ -3,32 +3,146 @@
   flex-direction: column;
   align-items: center;
   
-  border: solid 1px;
-  border-radius: 2px;
-
   gap: 3px;
-  padding: 3px;
+  margin: 10px;
+
+  width: 30%;
+  height: 80vh;
+  overflow-y: auto;
+
+  border-radius: 25px;
+
+  background-color: rgb(187, 191, 202);
+  background-color: rgb(73, 84, 100);
+}
+
+.recordListHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+
+  padding: 5px;
+
+  width: 20%;
+
+  background-color: rgb(73, 84, 100);
+
+  h3 {
+    color: rgb(232, 232, 232);
+  }
+
+  p {
+    color: rgb(232, 232, 232);
+  }
+}
+
+.recordBox {
+  display: flex;
+  flex-direction: column-reverse;
+
+  margin-top: 12vh;
 }
 
 .record {
   display: flex;
   flex-direction: column;
 
-  border: solid 1px;
-  border-radius: 1px;
-
   padding: 3px;
-  margin: 3px;
+  margin: 5px;
+
+  border: solid 1px rgb(232, 232, 232);
+  border-radius: 10px;
+
+  width: 100%;
+
+
+  border: solid 3px rgb(187, 191, 202);
+
+  background-color: rgb(187, 191, 202);
 }
 
-.weaponTag {
+.record:hover {
+  border-color: rgb(232, 232, 232);
+  background-color: rgb(73, 84, 100);
+
+  .recordInfoBox > .weaponTag, .orderTag,
+  .skillTag {
+    background-color: rgb(187, 191, 202);
+  }
+
+
+}
+
+.recordInfoBox{
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
+.weaponTag {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  text-align: center;
+
+  margin: 2px;
+
+  width: 100%;
+  border-radius: 25px;
+
+  background-color: rgb(232, 232, 232);
+
+  p {
+    color: rgb(10, 10, 10);
+  }
+}
+
+.orderTag {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  text-align: center;
+
+  margin: 2px;
+
+  width: 100%;
+  
+  border-radius: 25px;
+
+  background-color: rgb(232, 232, 232);
+  
+  p {
+    color: rgb(10, 10, 10);
+  }
+}
+
 .skillTag {
   display: flex;
   flex-direction: column;
-  align-items: end;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 2px;
+  padding: 10px;
+
+  border-radius: 25px;
+
+  background-color: rgb(232, 232, 232);
+}
+
+.skillRecord {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  p {
+    color: rgb(10, 10, 10);
+  }
 }
