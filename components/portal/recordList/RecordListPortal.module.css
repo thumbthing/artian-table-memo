@@ -1,0 +1,142 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recordListContainer {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+  padding: 10px;
+
+  width: 90vw;
+  height: 90vh;
+  overflow-y: auto;
+
+  background-color: rgb(232, 232, 232);
+
+  border: solid 10px rgb(73, 84, 100);
+  border-radius: 10px;
+}
+
+.recordListHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  height: 10vh;
+
+
+  font-size: 3vh;
+  color: rgb(73, 84, 100);
+}
+
+.recordListBox {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1vh;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 10px;
+}
+
+.noRecordNoticeText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 1vh;
+  padding: 1vh;
+
+  box-sizing: content-box;
+
+  height: 100%;
+
+  font-size: 5vh;
+  color: rgb(232, 232, 232);
+
+  border-radius: 10px;
+
+  background-color: rgb(73, 84, 100);
+}
+
+.orderRecordDeckBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 1vw;
+  padding: 1vw;
+
+  border-radius: 30px;
+
+  background-color: rgb(187, 191, 202);
+}
+
+.orderRecordDeckHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 4vw;
+  height: 4vw;
+
+  font-size: 30px;
+  color: rgb(232, 232, 232);
+
+  border-radius: 25%;
+
+  background-color: rgb(73, 83, 100);
+}
+
+.recordCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 9vw;
+  height: 100%;
+  
+  border-radius: 10px;
+
+  background-color: rgb(232, 232, 232);
+}
+
+.recordCardHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 10px;
+
+  p {
+    font-size: 20px;
+    color: rgb(10, 10, 10);
+  }
+}
+
+.recordCardSkill {
+  display: flex;
+  flex-direction: column;
+
+  padding: 10px;
+
+  text-align: end;
+
+  p {
+    font-size: 16px;
+    color: rgb(10, 10, 10);
+  }
+}
