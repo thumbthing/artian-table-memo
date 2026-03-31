@@ -1,6 +1,5 @@
 "use client";
 
-import WeaponSelectBox from "@/components/weapon/WeaponSelectBox";
 import style from "./AdvanceSettingContainer.module.css";
 import WeaponAdvanceSettingList from "@/components/weapon/SingleWeaponSelect";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -78,7 +77,6 @@ export default function AdvanceSettingContainer() {
 
   return (
     <div className={style.container}>
-      <WeaponSelectBox />
       <WeaponAdvanceSettingList />
     </div>
   )
