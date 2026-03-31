@@ -3,26 +3,146 @@
   flex-direction: column;
   align-items: center;
 
-  border: solid 1px;
   margin: 10px;
+  padding: 10px;
+
+  height: 63vh;
+
+  border: solid 1px;
+  border-radius: 10px;
+  border-color: rgb(232, 232, 232);
+
+  background-color: rgb(232, 232, 232);
 }
 
-.skillList {
+
+.noticeBox {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 
-  margin: 20px;
+  margin: 5px;
   gap: 10px;
+
+  width: 60vh;
+
+  border-radius: 20px;
+
+  background-color: rgb(187, 191, 202);
+
 }
 
-.countNotice {
+.countBox {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  
+  width: 100%;
+  height: 80%;
+
+  margin: 10px;
+
+  border: solid 1px;
+  border-color: rgb(187, 191, 202);
+  border-radius: 5px;
+
+  background-color: rgb(187, 191, 202);
+
+  color: rgb(73, 84, 100);
+}
+
+.boxHeaderText {
+  text-align: center;
+  font-size: 20px;
+}
+
+.countText {
+  font-size: 40px;
+}
+
+.countNoticeText {
+  color: rgb(232, 232, 232);
+
+  background: rgb(73, 84, 100);
+}
+
+.countOrderNoticeAssignMentBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 80%;
+
+  border: solid 4px;
+  border-color: rgb(232, 232, 232);
+  border-radius: 30px;
+
+  background-color: rgb(73, 84, 100);
+
+  div {
+    margin: 10px;
+    padding: 5px;
+
+    width: 90%;
+    height: 100%;
+
+    text-align: center;
+    font-size: 24px;
+    color: rgb(232, 232, 232);
+
+    border-radius: 20px;
+  }
+}
+
+.defaultNoticeAssignMentBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 80%;
+
+  border: solid 4px;
+  border-color: rgb(187, 191, 202);
+  border-radius: 5px;
+
+  background-color: rgb(187, 191, 202);
+
+  div {
+    margin: 10px;
+    padding: 5px;
+
+    width: 90%;
+    height: 100%;
+
+    text-align: center;
+    font-size: 24px;
+    color: rgb(10, 10, 10);
+
+    border-radius: 20px;
+
+    background-color: rgb(187, 191, 202);
+  }
 }
 
 .noRecordNotice {
   display: flex;
   align-items: center;
+}
+
+
+.skillList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  margin: 20px;
+  gap: 10px;
+  padding: 10px;
+
+  border-radius: 10px;
 }
