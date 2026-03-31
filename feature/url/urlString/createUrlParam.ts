@@ -38,7 +38,8 @@ export function createAdvanceSettingParamString(urlData: Pick<UrlStateType, "wea
 
   const advanceParam = `advance=${advanceList.join("|")}`;
 
-  return `?${weaponParam}&${advanceParam}`;
+  // return `?${weaponParam}&${advanceParam}`;
+  return `${weaponParam}&${advanceParam}`;
 }
 
 export function createTarredDeviceParamString() {
