@@ -1,0 +1,64 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.portalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 30px;
+
+  background-color: rgb(232, 232, 232);
+}
+
+.skillListHeader {
+  
+  width: 30%;
+  
+  font-size: 25px;
+  
+  text-align: center;
+  color: rgb(232, 232, 232);
+
+  border-radius: 50px;
+
+  background-color: rgb(73, 84, 100);
+}
+
+.skillListBox {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  
+  gap: 10px;
+  padding: 10px;
+
+  background-color: rgb(73, 84, 100);
+
+  border-radius: 10px;
+}
+
+.singleSkill {
+  padding: 10px;
+  margin: 10px;
+
+  border-radius: 10px;
+
+  text-align: center;
+
+  background-color: rgb(232, 232, 232);
+  color: rgb(10, 10, 10);
+}
+
+.singleSkill:hover {
+  color: rgb(232, 232, 232);
+  background-color: rgb(10, 10, 10);
+}
