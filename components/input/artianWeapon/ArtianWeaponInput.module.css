@@ -1,0 +1,45 @@
+.inputBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 0.5vh;
+  gap: 1vh;
+  padding: 1vh;
+
+  width: 14vw;
+
+  /* border: solid 1px; */
+  border-radius: 10px;
+
+  background-color: rgb(73, 84, 100);
+}
+
+.order {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: centeroi8u643e4r69--;
+
+  font-size: 2vw;
+  color: rgb(232, 232, 232);
+}
+
+.inputArea {
+  flex: 3;
+
+  text-align: center;
+  color: rgb(10, 10, 10);
+  
+  padding: 3px;
+
+  height: 3vh;
+  width: 10vw;
+
+  font-size: 3vh;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: rgb(187, 191, 202);
+}
