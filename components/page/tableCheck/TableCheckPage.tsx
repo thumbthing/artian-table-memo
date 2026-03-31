@@ -4,9 +4,9 @@ import TableCheckContainer from "@/components/container/TableCheck/TableCheckCon
 import style from "./TableCheckPage.module.css"
 import { shallowEqual } from "react-redux";
 import TableRecordContainer from "@/components/portal/record/TableRecordPortal";
-import NavigationBar from "@/components/container/menuBar/navigationBar/NavigationBar";
 import SeriesSkillList from "@/components/portal/skillList/SeriesSkillList";
 import GroupSkillList from "@/components/portal/skillList/GroupSkillList";
+import NavigationBar from "@/components/container/menuBar/navigationBar/NavigationBar";
 
 export default function TableCheckPage() {
   const {isOnRecord, isSeriesSkillSelecting, isGroupSkillSelecting, weaponName, elementName} = useAppSelector(state => ({
@@ -20,6 +20,7 @@ export default function TableCheckPage() {
   return (
     <>
       <div className={style.page}>
+        <NavigationBar />
         <TableCheckMenuBar />
         <TableCheckContainer />
       </div>
