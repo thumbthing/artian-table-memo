@@ -1,0 +1,78 @@
+body {
+  background-color: rgb(244, 244, 242);
+}
+
+.container {
+  position: relative;
+
+  margin: 10vh;
+  gap: 10px;
+  padding: 10vh;
+
+  /* background-color: rgb(232, 232, 232); */
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1vh;
+
+  font-size: 9vh;
+  color: rgb(73, 84, 100);
+
+  border-radius: 30px;
+
+  background-color: rgb(187, 191, 202);
+}
+
+.navigateBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 10vh;
+  gap: 2vh;
+  padding: 5vh;
+
+  border-radius: 20px;
+
+  background-color: rgb(187, 191, 202);
+}
+
+.atianNavigateButton {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+
+  padding: 1vh;
+
+  color: rgb(232, 232, 232);
+
+  border-radius: 10px;
+
+  background-color: rgb(73, 84, 100);
+}
+
+.gogmaziosArtianNavigateButton {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+
+  padding: 1vh;
+
+  color: rgb(232, 232, 232);
+
+  border-radius: 10px;
+
+  background-color: rgb(73, 84, 100);
+}
