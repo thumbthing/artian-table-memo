@@ -1,0 +1,74 @@
+.form {
+  display: flex;
+  justify-content: space-evenly;
+
+  padding: 10px;
+
+  border-radius: 10px;
+
+  background-color: rgb(187, 191, 202);
+}
+
+.deviceInputHeader {
+  color: rgb(232, 232, 232);
+}
+
+.deviceInputContainer {
+  background-color: rgb(73, 84, 100);
+
+  padding: 5px;
+
+  border-radius: 10px;
+
+}
+
+.tarredDeviceInputBox {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.inputBox {
+  display: flex;
+
+  padding: 2px;
+
+  background-color: rgb(232, 232, 232);
+
+  border-radius: 20px;
+}
+
+.inputArea {
+  font-size: 18px;
+  color: rgb(10, 10, 10);
+}
+
+.input {
+  width: 60%;
+  height: 100%;
+
+  color: rgb(10, 10, 10);
+  background-color: rgb(187, 191, 202);
+
+  border: none;
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+
+  border: none;
+  border-radius: 10px;
+}
+
+.submitButton:disabled {
+  background-color: rgb(73, 84, 100);
+  color: rgb(255, 255, 255);
+}

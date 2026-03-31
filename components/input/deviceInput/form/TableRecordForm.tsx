@@ -9,6 +9,7 @@ import thumbthingLog from "@/feature/customFeature/log/customLog";
 import { normalizeSkill } from "@/feature/parse/userInput/normalizeSkill";
 import { addTableRecord } from "@/feature/store/slices/table/tableSlice";
 import { getTableRecordTotalAmount } from "@/feature/calculate/tarredDevice/getTableCheckAmount";
+import style from "./TableRecordForm.module.css"
 
 interface TableRecordFormProps {
   weaponName: WeaponType,
@@ -33,8 +34,6 @@ export default function TableRecordForm({weaponName, elementName}: TableRecordFo
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    console.log(e.currentTarget.seriesSkill.value)
 
     const attack = e.currentTarget.attack.value;
     const affinity = e.currentTarget.affinity.value;
@@ -107,6 +106,7 @@ export default function TableRecordForm({weaponName, elementName}: TableRecordFo
     const decreasedAmount = deviceAmount - inputAmount;
     const devideValue = advanceSetting[tarredDeviceKey] ? 3 : 6;
     
+    // 계산 방식 변경
     const isNoRemain = decreasedAmount % devideValue === 0;
     if (!isNoRemain) {
       handleValidateResult(setValideState, validateState, isNoRemain);
@@ -127,41 +127,50 @@ export default function TableRecordForm({weaponName, elementName}: TableRecordFo
   }, [inValidAttack, inValidAffinity, inValidElement])
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <div>
-        <p>현재 부식된 장치</p>
-        <div>
+    <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
+      <div className={style.deviceInputContainer}>
+        <h3 className={style.deviceInputHeader}>현재 부식된 장치</h3>
+        <div className={style.tarredDeviceInputBox}>
           <label>
-            <p>
-              공격 :<input 
-                      name="attack" 
-                      type="number"
-                      onChange={(e) => debounceChange(e, setAttackInput, setInValidAttack, inValidAttack,"attack")}
-                      />
-            </p>
+            <div className={style.inputBox}>
+              <p className={style.inputArea}>
+                공격 :<input 
+                        className={style.input}
+                        name="attack" 
+                        type="number"
+                        onChange={(e) => debounceChange(e, setAttackInput, setInValidAttack, inValidAttack,"attack")}
+                        />
+              </p>
+            </div>
           </label>
           <label>
-            <p>
-              회심 :<input 
-                      name="affinity"
-                      type="number"
-                      onChange={(e) => debounceChange(e, setAffinityInput, setInValidAffinity, inValidAffinity,"affinity")}
-                      />
-            </p>
+            <div className={style.inputBox}>
+              <p className={style.inputArea}>
+                회심 :<input 
+                        className={style.input}
+                        name="affinity"
+                        type="number"
+                        onChange={(e) => debounceChange(e, setAffinityInput, setInValidAffinity, inValidAffinity,"affinity")}
+                        />
+              </p>
+            </div>
           </label>
           <label>
-            <p>
-              격화 :<input 
-                      name="element"
-                      type="number"
-                      onChange={(e) => debounceChange(e, setElementInput, setInValidElement, inValidElement, "element")}
-                    />
-            </p>
+            <div className={style.inputBox}>
+              <p className={style.inputArea}>
+                격화 :<input 
+                        className={style.input}
+                        name="element"
+                        type="number"
+                        onChange={(e) => debounceChange(e, setElementInput, setInValidElement, inValidElement, "element")}
+                        />
+              </p>
+            </div>
           </label>
         </div>
       </div>
       <SkillSelect/>
-      <button type="submit" disabled={(inValidAttack || inValidAffinity || inValidElement)}>
+      <button className={style.submitButton} type="submit" disabled={(inValidAttack || inValidAffinity || inValidElement)}>
         테이블 기록
       </button>
     </form>
