@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import TableRecordForm from "../../input/deviceInput/form/TableRecordForm";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { resetRecordState } from "@/feature/store/slices/table/tableSlice";
+// import { useEffect } from "react";
 
 interface TableRecordInputProps {
   weaponName: WeaponType,
@@ -35,12 +36,10 @@ export default function TableRecordPortal({weaponName, elementName}: TableRecord
 
   return createPortal(
     <div className={style.overlay} onClick={() => {closePortal()}}>
-      <div className={style.recordBox} 
-      onClick={(e) => e.stopPropagation()}>
-        <div>
-          <p>확인 중인 테이블</p>
-          <p>무기 : {weaponName}</p>
-          <p>속성 : {elementName}</p>
+      <div className={style.recordBox} onClick={(e) => e.stopPropagation()}>
+        <div className={style.weaponInfo}>
+          <h3>무기 : {weaponName}</h3>
+          <h3>속성 : {elementName}속성</h3>
         </div>
         <TableRecordForm weaponName={weaponName} elementName={elementName}/>
       </div>

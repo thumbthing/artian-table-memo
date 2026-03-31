@@ -30,13 +30,19 @@
   gap: 10px;
   padding: 10px;
 
-  background-color: black;
+  width: 40%;
 
-  border: solid 10px;
+  background-color: rgb(232, 232, 232);
+
+  border: solid 10px rgb(232, 232, 232);
   border-radius: 10px;
 }
 
-.inputForm {
+.weaponInfo {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  color: rgb(10, 10, 10);
 }
