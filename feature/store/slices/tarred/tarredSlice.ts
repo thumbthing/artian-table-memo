@@ -10,9 +10,9 @@ interface tarredDeviceStateType {
 
 const initialState: tarredDeviceStateType = {
   input: {
-    attack: 3,
-    affinity: 3,
-    element: 3
+    attack: 0,
+    affinity: 0,
+    element: 0
   },
   skillAssignment:{
     attack: 0,
