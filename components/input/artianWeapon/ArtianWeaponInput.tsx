@@ -41,10 +41,14 @@ export default function ArtianWeaponInput ({index}: ArtianWeaponInputType) {
     setInput(`${input}${addString}`)
   }
 
+  const handleClick = () => {
+    setInput("");
+  }
+
   return (
     <div className={style.inputBox}>
       <div className={style.order}>{index + 1}</div>
-      <input type="text" className={style.inputArea} onChange={(e) => handleChange(e)} maxLength={5} value={input}/>
+      <input type="text" className={style.inputArea} onChange={(e) => handleChange(e)} onClick={() => handleClick()} maxLength={5} value={input}/>
     </div>
   )
 }
