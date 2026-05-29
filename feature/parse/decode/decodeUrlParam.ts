@@ -1,7 +1,9 @@
 
 // TODO : return 타입이 다양한 건 좋지 않다
 
+import { WeaponCodeType } from "@/global/type/appType";
 import { BinaryStringListType } from "@/global/type/extendedType";
+import { Tuple } from "@reduxjs/toolkit";
 
 // 3️⃣ 제네릭 기반 변환 함수 설계
 
@@ -72,4 +74,14 @@ export function decodeAdvanceParam(advanceParam: string) {
                                   return emptyList.concat(binaryList);
                                 });
   return octalCodeList
+}
+
+export function getParamAdvanceSetting(advanceParamString: string) {
+  const advanceSettingList = advanceParamString.split("|")
+                                                .map(advanceSetting => advanceSetting.split("-")) as [WeaponCodeType, string][];
+
+  const weaponCodeList = advanceSettingList.map(([weapon, setting]) => weapon);
+  const settingDigitList = advanceSettingList.map(([weapon, setting]) => setting);
+
+  return {weaponCodeList, settingDigitList}
 }
