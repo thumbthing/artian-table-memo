@@ -13,6 +13,7 @@ import { WeaponAdvanceSettingType } from "@/global/type/extendedType";
 import { getDefaultAdvanceCodeSetting } from "@/feature/parse/object/getDefaultWeaponAdvanceSetting";
 import createAdvanceSettingParamList from "@/feature/url/urlString/createAdvanceSettingParam";
 import { setAdvanceSettingParam } from "@/feature/store/slices/urlParam/urlParamSlice";
+import { setHydrate } from "@/feature/store/slices/weapon/weaponSlice";
 
 const ADVANCE_SETTING_NOTICE_TEXT = {
   header: "격화 효율이 설정되지 않았습니다.",
@@ -73,7 +74,8 @@ export default function NavigateTableCheckButton() {
     }
 
     setUnsetWeaponList([]);
-    dispatch(setAdvanceSettingParam(tableCheckUrl))
+    dispatch(setAdvanceSettingParam(tableCheckUrl));
+    dispatch(setHydrate(true));
     
     routerPush(`${ROUTE.tableCheck}?advance=${tableCheckUrl}`);
   }
