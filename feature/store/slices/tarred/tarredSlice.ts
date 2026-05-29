@@ -5,7 +5,6 @@ import { DUMI_TARRED_DEVICE } from "@/global/data/dumiData";
 
 interface tarredDeviceStateType {
   input: TarredDeviceType,
-  skillAssignment: TarredDeviceType
 }
 
 const initialState: tarredDeviceStateType = {
@@ -13,12 +12,7 @@ const initialState: tarredDeviceStateType = {
     attack: 0,
     affinity: 0,
     element: 0
-  },
-  skillAssignment:{
-    attack: 0,
-    affinity: 0,
-    element: 0
-  },
+  }
 }
 
 export const tarredSlice = createSlice({
@@ -40,13 +34,10 @@ export const tarredSlice = createSlice({
       state.input.attack = action.payload;
     },
     setInputAffinityDevice: (state, action: PayloadAction<number>) => {
-      state.input.attack = action.payload;
+      state.input.affinity = action.payload;
     },
     setInputElementDevice: (state, action: PayloadAction<number>) => {
-      state.input.attack = action.payload;
-    },
-    setSkillAssignmentDevice: (state) => {
-      state.skillAssignment = {...state.input}
+      state.input.element = action.payload;
     },
     resetTarredState: () => {
       return {...initialState}
@@ -75,7 +66,6 @@ export const {
   setInputAttackDevice, 
   setInputAffinityDevice, 
   setInputElementDevice, 
-  setSkillAssignmentDevice, 
   resetTarredState 
 } = tarredSlice.actions
 
