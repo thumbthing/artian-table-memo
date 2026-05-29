@@ -1,28 +1,21 @@
 "use client";
 
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { useAppDispatch } from "@/app/hooks";
 import { sortTableRecord } from "@/feature/store/slices/table/tableSlice";
-import { setSkillAssignmentDevice } from "@/feature/store/slices/tarred/tarredSlice";
 import { ROUTE } from "@/global/data/routeData";
-import { useRouter } from "next/navigation";
-import { useCallback } from "react";
 import style from "./NaviagateButton.module.css"
+import useRouterPush from "@/feature/hook/useRouterPush";
 
 export default function NavigateSkillAssignmentButton() {
-  const router = useRouter();
   const dispatch = useAppDispatch();
+  const routerPush = useRouterPush();
 
-  const navigateToTableRecord = useCallback(() => {
-    dispatch(setSkillAssignmentDevice());
+  const navigateToTableRecordPage = () => {
     dispatch(sortTableRecord());
-    const tableRecordUrl = `${window.location.origin}${ROUTE.skillAssignment}`;
-    router.push(tableRecordUrl);
-  },[])
-
+    routerPush(ROUTE.skillAssignment)
+  }
 
   return (
-    <>
-      <input type="button" className={style.button} value={"스킬 부여로 이동"} onClick={() => navigateToTableRecord()}/>
-    </>
+    <input type="button" className={style.button} value={"스킬 부여로 이동"} onClick={() => navigateToTableRecordPage()}/>
   )
 }

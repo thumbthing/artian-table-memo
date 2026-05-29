@@ -2,30 +2,28 @@
 
 import { useAppSelector } from "@/app/hooks";
 import { ROUTE } from "@/global/data/routeData";
-import { useRouter } from "next/navigation";
 import style from "./NaviagateButton.module.css"
+import useRouterPush from "@/feature/hook/useRouterPush";
 
 export default function NavigateAdvanceSettingButton() {
   const buttonText = "무기 격화 세팅"
 
   const advanceSettingParam = useAppSelector(state => state.urlParam.advanceSettingParam);
-  const router = useRouter();
+  const routerPush = useRouterPush();
 
-  const navigateToAdvanceSetting = () => {
-    const advanceSettingPath = `${window.location.origin}${ROUTE.advanceSetting}`;
-
+  const getAdvanceSettingUrl = () => {
     if (advanceSettingParam === "") {
-      router.push(advanceSettingPath);
-      return;
+      return `${ROUTE.advanceSetting}`
     }
+    return `${ROUTE.advanceSetting}?advance=${advanceSettingParam}`
+  }
 
-    router.push(`${advanceSettingPath}?${advanceSettingParam}`);
-    return;
+  const navigateToAdvanceSettingPage = () => {
+    const advanceSettingUrl = getAdvanceSettingUrl();
+    routerPush(advanceSettingUrl);
   }
 
   return (
-    <>
-      <input type="button"  className={style.button} value={buttonText} onClick={() => {navigateToAdvanceSetting()}}/>
-    </>
+    <input type="button"  className={style.button} value={buttonText} onClick={() => {navigateToAdvanceSettingPage()}}/>
   )
 }
