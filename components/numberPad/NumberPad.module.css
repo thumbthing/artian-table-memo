@@ -1,0 +1,46 @@
+.box {
+  display: flex;
+  flex-direction: column;
+
+  padding: 1vw;
+
+  border-radius: 10px;
+
+  background-color: rgb(187, 191, 202);
+}
+
+.activeInputBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  gap: 4px;
+  margin-bottom: 5px;
+}
+
+.activeInput {
+  padding: 5px;
+  margin: 0 2px 8px 2px;
+
+  border-radius: 4px;
+
+  background-color: rgb(232, 232, 232);
+
+  color: rgb(0, 0, 0);
+}
+
+.isActive {
+  background-color: rgb(73, 84, 100);
+
+  color: rgb(232, 232, 232);
+}
+
+.pad {
+  display: grid;
+  grid-template-columns: repeat(3, 3vw);
+  place-items: center;
+  place-content: center;
+  
+  gap: 4px;
+}

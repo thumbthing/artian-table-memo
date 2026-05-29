@@ -1,0 +1,62 @@
+.button {
+  width: 3vw;
+  
+  border-radius: 10px;
+  
+  background-color: rgb(232, 232, 232);
+}
+
+
+.buttonText {
+  font-size: 5vw;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.button:hover {
+  background-color: rgb(73, 84, 100);
+  fill: rgb(232, 232, 232);
+}
+
+.backspaceButton {
+  stroke: rgb(73, 84, 100);
+  background-color: rgb(232, 232, 232);
+  
+  width: 3vw;
+  
+  border-radius: 10px;
+}
+
+.backspaceButton:hover {
+  stroke: rgb(232, 232, 232);
+  background-color: rgb(73, 84, 100);
+}
+
+.resetButton {
+  fill: none;
+  stroke: rgb(73, 84, 100);
+  background-color: rgb(232, 232, 232);
+
+  width: 3vw;
+
+  border-radius: 10px;
+
+  path {
+    stroke-width: 7;
+  }
+  
+  polygon {
+    fill: rgb(73, 84, 100)
+  }
+}
+
+.resetButton:hover {
+  background-color: rgb(73, 84, 100);
+  stroke: rgb(232, 232, 232);
+  fill: none;
+
+  polygon {
+    fill: rgb(232, 232, 232);
+  }
+}
+

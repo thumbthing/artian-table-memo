@@ -1,44 +1,93 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import debounce from "@/feature/debounce/useDebounce";
-import { normalizeTarredDeviceInput, normalizeFormData} from "@/feature/parse/userInput/normalizeTarredDeviceInput";
+import { normalizeFormData} from "@/feature/parse/userInput/normalizeTarredDeviceInput";
 import { setInputAllDevice } from "@/feature/store/slices/tarred/tarredSlice";
-import { ADVANCE_CODE } from "@/global/data/appData";
+import { ADVANCE_CODE, TARRED_DEVICE_ADVANCE_LIST } from "@/global/data/appData";
 import { AdvanceType, TarredDeviceType } from "@/global/type/appType";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, KeyboardEvent, MouseEvent, RefObject, useLayoutEffect, useRef, useState } from "react";
 import style from "./DeviceInput.module.css"
+import NumberPad from "@/components/numberPad/NumberPad";
+import { KEY_PRESS } from "@/global/data/keyData";
+
 
 interface TarredDeviceInputProps {
+  inputRef: RefObject<HTMLInputElement | null>,
+  handleInputState: (
+      keyPress: string, 
+      // addCount: number, 
+      inputRef: RefObject<HTMLInputElement | null>, 
+      deviceKey: AdvanceType,
+      eventCursor: number | null
+    ) => void
+  handleKeyPressValue: (
+      e: KeyboardEvent<HTMLInputElement>, 
+      activeInput: AdvanceType | null, 
+      deviceKey: AdvanceType
+    ) => void
+  // handleFocusOnClick: (e: FocusEvent<HTMLInputElement> ,deviceKey: AdvanceType) => void,
+  handleFocusOnClick: (e: MouseEvent<HTMLInputElement> ,deviceKey: AdvanceType) => void,
+  deviceInput: Record<AdvanceType ,string>
+  activeInput: AdvanceType | null,
   deviceKey: AdvanceType,
   isSetting: boolean,
-  tarred: TarredDeviceType
+  tarred: TarredDeviceType,
 }
 
-function TarredDeviceInput({deviceKey, isSetting, tarred}: TarredDeviceInputProps) {
-  const input = useRef<number>(0);
+function TarredDeviceInput({
+  inputRef, 
+  handleInputState, 
+  handleKeyPressValue, 
+  handleFocusOnClick, 
+  deviceInput,
+  activeInput,
+  deviceKey, 
+  isSetting, 
+  tarred,
+}: TarredDeviceInputProps) {
 
-  const handleInput = (e :ChangeEvent<HTMLInputElement>) => {
-    const normailizedInput = normalizeTarredDeviceInput(e.target.value);
-    input.current = normailizedInput;
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+
+    if (inputValue.length < deviceInput[deviceKey].length) {
+      // handleInputState(KEY_PRESS.BackSpace, ADD_COUNT.keyPress, inputRef, deviceKey, e.currentTarget.selectionStart)
+      handleInputState(KEY_PRESS.BackSpace, inputRef, deviceKey, e.currentTarget.selectionStart)
+      return;
+    }
+
+    const onChangeCursor = e.target.selectionStart as number;
+    const lastInputChar = e.target.value[onChangeCursor - 1];
+
+    if (lastInputChar === undefined) return;
+
+    const keyPress = KEY_PRESS[lastInputChar];
+
+    if (keyPress === undefined) return;
+
+    // handleInputState(keyPress, ADD_COUNT.keyPress, inputRef, deviceKey, e.currentTarget.selectionStart);
+    handleInputState(keyPress, inputRef, deviceKey, e.currentTarget.selectionStart);
+    return;
   }
 
-  const debounceInputChange = debounce(handleInput, 500);
-
   return (
-    <div className={style.inputContainer}>
+    <div className={style.inputContainer} >
       <label className={style.inputLabel} htmlFor={deviceKey}>
         <div className={style.inputBox}>
           <p className={style.inputArea}>
             {ADVANCE_CODE[deviceKey]} : 
             <input 
+              ref={inputRef}
               className={style.input}
               id={deviceKey}
-              type="number"
+              type="text"
+              inputMode="numeric"
               name={deviceKey}
               placeholder={`기존 : ${tarred[deviceKey]}`}
-              onChange={(e) => debounceInputChange(e)}
-              autoComplete="false"
+              // value={deviceInput[deviceKey]}
+              // onChange={(e) => handleInput(e)}
+              defaultValue={deviceInput[deviceKey]}
+              onKeyDown={(e) => handleKeyPressValue(e, activeInput, deviceKey)}
+              onClick={(e) => handleFocusOnClick(e, deviceKey)}
               disabled={!isSetting}
             />
           </p>
@@ -48,20 +97,362 @@ function TarredDeviceInput({deviceKey, isSetting, tarred}: TarredDeviceInputProp
   )
 }
 
+/** 
+ * 동작의 흐름
+ * 
+ * 사용자가 입력할 입력란을 클릭한다
+ * 클릭했을 경우 어떤 입력란인지 확인한다
+ * 입력란의 커서를 확인한다
+ * 확인된 입력란, 커서를 저장한다
+ * 
+ * 사용자가 지정한 입력란에 이벤트가 발생한다
+ * 이벤트의 종류 (키보드입력, 마우스 입력)
+ * 
+ * 키보드 입력일 경우
+ * 텐키리스일 경우를 생각해서 [q,w,e,a,s,d,z,x,c] 입력을 
+ *                        [4,5,6,7,8,9,reset,0,delete]
+ * 이벤트로 정의한다
+ * 
+ * 정의된 이벤트를 확인한다
+ * 
+ * 숫자일 경우 
+ * 클릭하여 지정된 커서의 위치를 확인한다
+ * 확인된 커서 위치에 숫자를 삽입한다
+ * "123456"
+ *     ^
+ * 
+ * "1234756"
+ *      ^
+ * 
+ * 이렇게 되었을 경우 커서는 3 => 4로 변경이된다
+ * 변경된 커서를 저장한다
+ * 삽입한 문자열을 저장한다
+ * 
+ * reset일 경우
+ * 문자열을 ""로 초기화한다
+ * 커서를 0으로 초기화한다
+ * 문자열과 커서 위치를 저장한다
+ * 
+ * Backspace일 경우
+ * 현재 커서 위치를 확인한다
+ * 기존 문자열에서 현재 커서 위치의 char를 하나 삭제한다
+ * 삭제된 문자열을 저장한다
+ * 1234
+ *   ^
+ * 커서 위치 3
+ * 
+ * 124
+ *  ^
+ * 커서 위치 2
+ * 커서와 문자열을 저장한다
+ * 
+ * 큰 흐름
+ * 입력값 확인
+ * 확인된 입력값 변환
+ * 커서위치 확인
+ * 확인된 입력값으로 문자열 변환
+ * 변환된 문자열 저장
+ * 입력값에 따른 커서위치 조정
+ * 
+ * 
+ * */ 
+
+
 export default function DeviceInputBox() {
+  const dispatch = useAppDispatch();
   const tarredDevice = useAppSelector(state => state.tarred.input);
   const [isSetting, setIsSetting] = useState<boolean>(true);
+  // const [inputCursor, setInputCursor] = useState<number>(0);
+  const [deviceInputCursor, setDeviceInputCursor] = useState<Record<AdvanceType, number>>({
+    attack: 0,
+    affinity: 0,
+    element: 0
+  })
+  const [activeInput, setActiveInput] = useState<AdvanceType | null>(null);
+  const [deviceInput, setDeviceInput] = useState({
+    attack: "",
+    affinity: "",
+    element: ""
+  })
 
-  const dispatch = useAppDispatch();
+  const attackInputRef = useRef<HTMLInputElement>(null);
+  const affinityInputRef = useRef<HTMLInputElement>(null);
+  const elementInputRef = useRef<HTMLInputElement>(null);
 
+  // useEffect(() => {
+  //   if (activeInput === null) return;
+  //   const ref = getInputRef(activeInput)
+  //   ref?.current?.setSelectionRange(inputCursor, inputCursor)
+  //   console.log(ref?.current?.selectionStart);
+    
+  // }, [deviceInput])
+
+  useLayoutEffect(() => {
+    if (activeInput === null) return;
+    const ref = getInputRef(activeInput);
+    const cursor = deviceInputCursor[activeInput];
+    ref?.current?.setSelectionRange(cursor, cursor);
+    ref?.current?.focus();
+  }, [deviceInput, activeInput])
+
+  // refactoring => getActiveDeviceInput
+  const getInputRef = (deviceKey: AdvanceType | null) => {
+    const deviceInputRef: Record<AdvanceType, RefObject<HTMLInputElement | null>> = {
+      attack: attackInputRef,
+      affinity: affinityInputRef,
+      element: elementInputRef
+    }
+
+    if (deviceKey === null) return null;
+
+    const inputRef = deviceInputRef[deviceKey];
+    return inputRef
+  }
+
+  const dispatchInputState = (cursor: number, input: string, deviceKey: AdvanceType) => {
+    // setInputCursor(cursor);
+    setDeviceInput(prev => ({
+      ...prev,
+      [deviceKey]: input
+    }))
+    setDeviceInputCursor(prev => ({
+      ...prev,
+      [deviceKey]: cursor
+    }))
+  }
+
+  // state 최신화
+  // cursor, focus, input, ref
+  const handleInputState = (
+    keyPress: string, 
+    // addCount: number, 
+    inputRef: RefObject<HTMLInputElement | null>, 
+    deviceKey: AdvanceType,
+    eventCursor: number | null
+  ) => {
+    // const refCursor = inputRef?.current?.selectionStart as number;
+    // const prevString = deviceInput[deviceKey];
+    
+    const inputCursor = eventCursor === null ? deviceInputCursor[deviceKey] : eventCursor;
+    const prevInput = deviceInput[deviceKey];
+
+    switch(keyPress) {
+      case "Backspace": {
+        if (inputCursor === 0) break;
+        // 4 => 3 
+        // 1234567890 
+        // 5를 지우고 싶으면
+        // 
+        const backSpaceActionCursor = inputCursor - 1;
+        
+        const backSpaceExecInput = prevInput.slice(0, backSpaceActionCursor).concat(prevInput.slice(inputCursor));
+        // inputRef.current?.setSelectionRange(backSpaceCursor, backSpaceCursor);
+        inputRef.current?.setSelectionRange(inputCursor, inputCursor);
+        dispatchInputState(backSpaceActionCursor, backSpaceExecInput, deviceKey);
+        break;
+
+        // const newString = prevString.slice(0, refCursor - 1).concat(prevString.slice(refCursor + 1, prevString.length));
+        // const newCursor = refCursor - 1
+        // inputRef?.current?.setSelectionRange(newCursor, newCursor);
+
+        // dispatchInputState(newCursor, newString, deviceKey)
+        // break;
+      }
+      case "Delete": {
+        if (inputCursor >= prevInput.length) break;
+        const deleteActionCursor = inputCursor + 1;
+        const deleteExecInput = prevInput.slice(0, inputCursor).concat(prevInput.slice(deleteActionCursor));
+
+        dispatchInputState(inputCursor, deleteExecInput, deviceKey)
+        break;
+      }
+      case "reset": {
+        inputRef.current?.setSelectionRange(0,0);
+        dispatchInputState(0, "", deviceKey)
+        break;
+      }
+      case "0": {
+        if (inputCursor === 0) break;
+      }
+      default: {
+        const charAddInput = prevInput.slice(0, inputCursor)
+                                      .concat(keyPress, prevInput.slice(inputCursor));
+        const charAddExecCursor = inputCursor + 1;
+
+        inputRef.current?.setSelectionRange(charAddExecCursor, charAddExecCursor);
+        dispatchInputState(charAddExecCursor, charAddInput, deviceKey)
+        
+        // const sliceIndex = inputCursor - 1 + addCount;
+        // const newString = prevInput.slice(0, sliceIndex).concat(keyPress, prevInput.slice(sliceIndex));
+        // const newCursor = inputCursor + addCount;
+
+        // inputRef.current?.setSelectionRange(newCursor, newCursor)
+        // setInputCursor(newCursor);
+        // dispatchInputState(newCursor, newString, deviceKey)
+      }
+    }
+  }
+
+  const getActiveInputPosition = (activeInput: AdvanceType | null) => {
+    if (activeInput === null) return 0;
+    const position = TARRED_DEVICE_ADVANCE_LIST.indexOf(activeInput);
+    return position;
+  }
+
+
+
+  // 키보드 입력값 변환하여 state 최신화 함수 호출
+  const handleKeyPressValue = (e :KeyboardEvent<HTMLInputElement>, activeInput: AdvanceType | null, deviceKey: AdvanceType) => {
+    e.preventDefault();
+
+    const keyPress = KEY_PRESS[e.key];
+    const inputRef = getInputRef(deviceKey);
+    const eventCursor = e.currentTarget.selectionStart;
+
+    if (keyPress === undefined) return;
+    if (activeInput === null) return;
+    if (inputRef === null) return;
+    if (deviceKey !== activeInput) return;
+    // if (eventCursor === null) return;
+
+    switch(keyPress) {
+      case "Tab": {
+        if (e.shiftKey === true) {
+          setActiveInput(prev => {
+            const activeInputPosition = getActiveInputPosition(prev);
+            if (activeInputPosition > 0) {
+              return TARRED_DEVICE_ADVANCE_LIST[activeInputPosition - 1];
+            }
+            const inputRef = getInputRef(activeInput);
+            inputRef?.current?.focus();
+            return prev;
+          });
+        } else {
+          setActiveInput(prev => {
+            const activeInputPosition = getActiveInputPosition(prev);
+            if (activeInputPosition < TARRED_DEVICE_ADVANCE_LIST.length) {
+              return TARRED_DEVICE_ADVANCE_LIST[activeInputPosition + 1];
+            }
+            return prev
+          });
+          const inputRef = getInputRef(activeInput);
+          inputRef?.current?.focus();
+        }
+        break;
+      }
+      case "Backspace": {
+        // handleInputState(keyPress, ADD_COUNT.keyPress, inputRef, deviceKey, eventCursor);
+        handleInputState(keyPress, inputRef, deviceKey, eventCursor);
+        break;
+      }
+      case "Delete": {
+        // handleInputState(keyPress, ADD_COUNT.keyPress, inputRef, deviceKey, eventCursor);
+        handleInputState(keyPress, inputRef, deviceKey, eventCursor);
+        break;
+      }
+      case "ArrowLeft": {
+        const moveLeftCursor = deviceInputCursor[deviceKey] - 1;
+        if (moveLeftCursor < 0) break;
+        inputRef.current?.setSelectionRange(moveLeftCursor, moveLeftCursor);
+        setDeviceInputCursor(prev => ({
+          ...prev,
+          [deviceKey]: moveLeftCursor
+        }))
+        // setInputCursor(moveLeftCursor);
+        
+        break;
+      }
+      case "ArrowRight": {
+        const moveRightCursor = deviceInputCursor[deviceKey] + 1;
+        if (moveRightCursor > deviceInput[deviceKey].length) break;
+        inputRef.current?.setSelectionRange(moveRightCursor, moveRightCursor);
+        setDeviceInputCursor(prev => ({
+          ...prev,
+          [deviceKey]: moveRightCursor
+        }));
+        // inputRef.current?.setSelectionRange(moveRightCursor, moveRightCursor);
+        // setInputCursor(moveRightCursor);
+        
+        break;
+      }
+      default: {
+        // e.preventDefault();
+        // const nextCursor = inputCursor + 1
+        // setInputCursor(nextCursor);
+
+        // handleInputState(keyPress, ADD_COUNT.keyPress, inputRef, deviceKey, eventCursor);
+        handleInputState(keyPress, inputRef, deviceKey, eventCursor);
+      }
+    }
+
+  }
+
+// mousedown 시점
+// click 시점
+// focus 시점
+
+
+// 브라우저 동작 순서상:
+
+// mousedown
+// ↓
+// focus
+// ↓
+// selection 변경
+// ↓
+// mouseup
+// ↓
+// click
+
+// 순으로 진행된다.
+
+// 마다 caret 반영 타이밍이 다르다.
+
+  // 마우스로 클릭시 입력창, 커서 위치 값 설정
+  // const handleFocusOnClick = (e: FocusEvent<HTMLInputElement>, deviceKey: AdvanceType) => {
+  const handleFocusOnClick = (e: MouseEvent<HTMLInputElement>, deviceKey: AdvanceType) => {
+    // const inputRef = getInputRef(activeInput);
+    // const inputRef = getActivateDeviceInputRef(deviceKey);
+    const cursor = e.currentTarget.selectionStart;
+
+    if (cursor === null) return;
+
+    setActiveInput(prev => {
+      if (prev === deviceKey) return prev;
+      return deviceKey
+    });
+    // setInputCursor(prev => {
+    //   if (prev === cursor) return prev;
+    //   return cursor
+    // });
+    setDeviceInputCursor(prev => ({
+      ...prev,
+      [deviceKey]: cursor
+    }))
+  }
+
+  const handleOnCheck = (isChecked: boolean) => {
+    setIsSetting(prev => !prev);
+    if (isChecked === true) {
+      setDeviceInputCursor({
+        "attack": deviceInput.attack.length,
+        "affinity": deviceInput.affinity.length,
+        "element": deviceInput.element.length
+      });
+    }
+  }
+
+
+
+  // redux state update 기능
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-
     const deviceForm = normalizeFormData(formData)
 
-    setIsSetting(false)
+    setIsSetting(false);
+    setActiveInput(null);
     dispatch(setInputAllDevice(deviceForm))
   }
 
@@ -69,17 +460,57 @@ export default function DeviceInputBox() {
     <div className={style.box}>
       <h1 className={style.boxHeaderText}>테이블 확인</h1>
       <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
-        <h2 className={style.deviceFormHeaderText}>부식된 장치</h2>
-        <TarredDeviceInput deviceKey={"attack"} isSetting={isSetting} tarred={tarredDevice}/>
-        <TarredDeviceInput deviceKey={"affinity"} isSetting={isSetting} tarred={tarredDevice}/>
-        <TarredDeviceInput deviceKey={"element"} isSetting={isSetting} tarred={tarredDevice}/>
-        <div className={style.submitBox}>
-          <input className={style.submitButton} type="submit" value={"설정"} disabled={!isSetting}/>
-          <p className={style.submitLock}>
-            잠금
-            <input type="checkbox" checked={!isSetting} onChange={() => setIsSetting(!isSetting)}/>
-          </p>
+        <div className={style.formInputBox}>
+          <h2 className={style.deviceFormHeaderText}>부식된 장치</h2>
+          <TarredDeviceInput 
+            inputRef={attackInputRef} 
+            handleInputState={handleInputState}
+            handleFocusOnClick={handleFocusOnClick}
+            handleKeyPressValue={handleKeyPressValue}
+            deviceInput={deviceInput}
+            activeInput={activeInput}
+            deviceKey={"attack"} 
+            isSetting={isSetting} 
+            tarred={tarredDevice}
+          />
+          <TarredDeviceInput 
+            inputRef={affinityInputRef} 
+            handleInputState={handleInputState}
+            handleFocusOnClick={handleFocusOnClick}
+            handleKeyPressValue={handleKeyPressValue}
+            deviceInput={deviceInput}
+            activeInput={activeInput}
+            deviceKey={"affinity"} 
+            isSetting={isSetting} 
+            tarred={tarredDevice}
+          />
+          <TarredDeviceInput 
+            inputRef={elementInputRef} 
+            handleInputState={handleInputState}
+            handleFocusOnClick={handleFocusOnClick}
+            handleKeyPressValue={handleKeyPressValue}
+            deviceInput={deviceInput}
+            activeInput={activeInput}
+            deviceKey={"element"} 
+            isSetting={isSetting} 
+            tarred={tarredDevice}
+          />
+          <div className={style.submitBox}>
+            <input className={style.submitButton} type="submit" value={isSetting ? "저장" : ""} disabled={!isSetting}/>
+            <p className={style.submitLock}>
+              {isSetting ? "잠금" : "해제"}
+              <input type="checkbox" checked={!isSetting} onChange={() => handleOnCheck(true)}/>
+            </p>
+          </div>
         </div>
+        <NumberPad 
+          getInputRef={getInputRef}
+          handleInputState={handleInputState}
+          setActiveInput={setActiveInput}
+          // addCount={ADD_COUNT.mouseClick}
+          activeInput={activeInput}
+          deviceInputCursor={deviceInputCursor}
+        />
       </form>
     </div>
   )
