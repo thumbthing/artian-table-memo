@@ -2,6 +2,7 @@ import { WeaponCodeType, WeaponType } from "@/global/type/appType";
 import { decodeAdvanceParam, decodeParam } from "../decode/decodeUrlParam";
 import { WEAPON_CODE, WEAPON_LIST } from "@/global/data/appData";
 import { BinaryStringListType, BinaryStringType } from "@/global/type/extendedType";
+import { createAdvanceState } from "../weapon/UrlWeaponSetting";
 
 export function createWeaponBinaryList(weaponParam: string) {
   const weaponParamList = decodeParam(weaponParam, 2);
@@ -15,15 +16,28 @@ export function createAdvanceSettingBinaryList(advanceParam: string) {
   const advanceList = advanceParam
                         .split("|")
                         .map<[WeaponCodeType, BinaryStringListType[]]>((advanceWeapon) => {
-                          const [weaponRaw, advance] = advanceWeapon.split("-")
+                          const [weaponRaw, settingBinaryString] = advanceWeapon.split("-")
                           const weapon = weaponRaw as WeaponCodeType;
 
-                          const advanceSetting = decodeAdvanceParam(advance);
+                          const advanceSetting = decodeAdvanceParam(settingBinaryString);
                           const emptyList = Array(10 - advanceSetting.length).fill("0");
                           const settingList = emptyList.concat(advanceSetting);
                           return [weapon, settingList];
                         });
   return advanceList
+}
+
+export function getUrlParamPayload(validAdvanceParamString: string, hydrate: boolean) {
+  const urlAdvanceSettingList = createAdvanceSettingBinaryList(validAdvanceParamString);
+
+  const urlPayload = {
+    weaponList: urlAdvanceSettingList.map<WeaponType>(([weaponCode, binarySetting]) => WEAPON_LIST[WEAPON_CODE.indexOf(weaponCode)]),
+    advanceSetting: createAdvanceState(urlAdvanceSettingList),
+    param: validAdvanceParamString,
+    hydrate: hydrate
+  }
+
+  return urlPayload;
 }
 
 export function createWeaponParamByAdvanceList(advanceWeaponList: WeaponType[]) {

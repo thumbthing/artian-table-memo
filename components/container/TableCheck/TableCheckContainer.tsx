@@ -1,84 +1,72 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import thumbthingLog from "@/feature/customFeature/log/customLog";
-import UrlParamError from "@/feature/error/customError/UrlParamError";
-import { createAdvanceSettingBinaryList, createWeaponBinaryList } from "@/feature/parse/urlParam/encodeUrlParam";
-import { createAdvanceState } from "@/feature/parse/weapon/UrlWeaponSetting";
+import { getUrlParamPayload } from "@/feature/parse/urlParam/encodeUrlParam";
 import { setHydrate } from "@/feature/store/slices/weapon/weaponSlice";
-import checkUrlList from "@/feature/validate/list/checkUrlList";
-import checkUrlParam from "@/feature/validate/url/checkUrlParam";
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { useEffect } from "react";
 import WeaponTableRecordBox from "@/components/table/WeaponTableRecordBox";
 import TableRecordList from "@/components/table/TableRecordList";
 import style from "./TableCheckContainer.module.css"
 import { initFromUrlParam } from "@/feature/store/thunks/initFromUrlParam";
-import { WEAPON_LIST } from "@/global/data/appData";
+import AdvanceSettingParamError from "@/feature/error/customError/AdvanceSettingParamError";
+import useRouterPush from "@/feature/hook/useRouterPush";
+import { ROUTE } from "@/global/data/routeData";
+import checkAdvanceSettingParam from "@/feature/validate/url/checkAdvanceSettingParam";
 
 export default function TableCheckContainer() {
-  const router = useRouter();
   const searchParam = useSearchParams();
+  const routerPush = useRouterPush();
   
   const weaponHydrateState = useAppSelector(state => state.weapon.hydrated);
+  const advanceParam = useAppSelector(state => state.urlParam.advanceSettingParam);
   
   const dispatch = useAppDispatch();
   
   useEffect(() => {
     try {
       if (weaponHydrateState === true) {
-        thumbthingLog('setting', 'update 안함')
         return;
       }
       
-      const validParam = checkUrlParam();
+      const location = window.location;
+      const currentPath = location.href;
+      const advanceSettingPathRegexString = `^${location.origin}${ROUTE.tableCheck}$`;
+      const locationRegex = new RegExp(advanceSettingPathRegexString);
 
-      const urlWeaponList = createWeaponBinaryList(validParam.weapon);
-      const urlAdvanceList = createAdvanceSettingBinaryList(validParam.advance);
-      checkUrlList(urlWeaponList, urlAdvanceList, validParam.advance);
-      
-      thumbthingLog('setting', '초기화 중');
-
-      const advanceSetting = createAdvanceState(urlAdvanceList);
-      const weaponList = urlWeaponList.map((binary, index) => binary === "1" ? WEAPON_LIST[index] : binary)
-                                      .filter(weapon => weapon !== "0")
-      const param = `weapon=${validParam.weapon}&advance=${validParam.advance}`
-
-      const payload = {
-        urlWeaponList: weaponList,
-        advanceSetting,
-        param,
-        hydrate: true
-      };
-      
-      dispatch(initFromUrlParam(payload));
-
-      if (param.replaceAll("|", "%7C") !== searchParam.toString()) {
-        thumbthingLog('router', "redirect")
-        router.replace(`${window.location.pathname}?${param}`)
+      if (locationRegex.test(currentPath) && advanceParam !== "") {
+        return;
       }
+
+      checkAdvanceSettingParam(searchParam.get("advance"));
+
+      const validAdvanceParam = searchParam.get("advance") as string;
+
+      const urlPayload = getUrlParamPayload(validAdvanceParam, true);
+
+      dispatch(initFromUrlParam(urlPayload));
+
+      if (validAdvanceParam.replaceAll("|", "%7C") !== searchParam.toString()) {
+        routerPush(`${ROUTE.tableCheck}?advance=${validAdvanceParam}`)
+      }
+
     } catch (error) {
-      dispatch(setHydrate(false))
+      if (weaponHydrateState) {
+        dispatch(setHydrate(false));
+      }
 
-      if (error instanceof UrlParamError) {
-        console.log(error.message);
+      if (error instanceof AdvanceSettingParamError) {
         const replaceUrl = error.getReplaceUrl();
-        const currentUrl = window.location.href
-
-        if (replaceUrl !== currentUrl) {
-          router.replace(replaceUrl);
-        } else {
-          const rootUrl = window.location.origin;
-          router.replace(rootUrl);
-        }
+        routerPush(replaceUrl);
       }
     }
-  },[searchParam]);
+
+  }, [searchParam])
 
   return (
-    <div className={style.recordContainer}>
+    <main className={style.recordContainer}>
       <WeaponTableRecordBox />
       <TableRecordList />
-    </div>
+    </main>
   )
 }
