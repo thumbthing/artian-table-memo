@@ -26,12 +26,16 @@ export type TarredDeviceType = {
   element: number
 }
 
+
+
 // TODO: Partial 타입 개념 정리
-export type AdvanceCodeType = Partial<Record<WeaponType, number>>;
+export type AdvanceCodeType = Record<WeaponType, number>;
+
+export type AdvanceUrlCodeType = Partial<Record<WeaponType, number>>;
 
 export type UrlStateType = {
   weaponCode: number,
-  advanceCode: AdvanceCodeType[],
+  advanceCode: AdvanceUrlCodeType[],
   tarredDeviceParam: string,
   weaponListParam: string,
   advanceSettingParam: string
