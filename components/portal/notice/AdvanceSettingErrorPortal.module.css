@@ -1,0 +1,68 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  background-color: rgb(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  color: rgb(50, 50, 50);
+  text-align: center;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: rgb(232, 232, 232);
+
+  padding: 1vw;
+
+  min-width: 90%;
+  max-width: 90%;
+
+  border-radius: 10px;
+}
+
+.unsetSetting {
+  width: 80%;
+
+  padding: 10px;
+
+  border-radius: 10px;
+
+  color: rgb(50, 50, 50);
+  text-align: center;
+}
+
+.unsetWeaponList {
+  display: grid;
+  grid-auto-flow: column;
+
+  margin: 1vh;
+  padding: 2vw;
+  gap: 10px;
+
+}
+
+.unsetWeapon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 10px;
+
+  background-color: rgb(200, 200, 200);
+
+  border-radius: 5px;
+
+  font-size: 2vh;
+  text-align: center;
+  color: rgb(10, 10, 10);
+}
