@@ -6,7 +6,7 @@ import { WeaponType } from "@/global/type/appType"
 import thumbthingLog from "@/feature/customFeature/log/customLog"
 
 type InitUrlPayLoadType = {
-  urlWeaponList: WeaponType[],
+  weaponList: WeaponType[],
   advanceSetting: WeaponAdvanceSettingType,
   param: string,
   hydrate: boolean
@@ -16,7 +16,7 @@ export const initFromUrlParam = (payload: InitUrlPayLoadType) =>
   (dispatch: AppDispatch, getState: () => RootState) => {
     dispatch(
       setByUrlParam({
-        weaponList: payload.urlWeaponList,
+        weaponList: payload.weaponList,
         advanceSetting: payload.advanceSetting,
         hydrate: payload.hydrate
       }),
