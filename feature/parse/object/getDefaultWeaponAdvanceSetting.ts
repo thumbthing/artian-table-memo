@@ -44,3 +44,9 @@ export function getDefaultWeaponAdvanceSetting() {
   return weaponAdvanceSetting;
 }
 
+export function getDefaultAdvanceCodeSetting() {
+  const keyList = [WEAPON_LIST];
+  const weaponCodeSetting = getDeepCustomObject(keyList, 0);
+  return weaponCodeSetting;
+}
+
