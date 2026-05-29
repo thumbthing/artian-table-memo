@@ -2,7 +2,7 @@
 
 import { WEAPON_LIST } from "@/global/data/appData";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { addWeapon } from "@/feature/store/slices/weapon/weaponSlice";
+import { addWeapon, removeWeapon } from "@/feature/store/slices/weapon/weaponSlice";
 import style from "./WeaponSelectBox.module.css";
 import { WeaponType } from "@/global/type/appType";
 
@@ -19,16 +19,27 @@ export default function WeaponSelectBox() {
     }
   };
 
+  const handleWeaponList = (weapon: WeaponType) => {
+    if (weaponList.includes(weapon)) {
+      dispatch(removeWeapon(weapon));
+    } else {
+      dispatch(addWeapon(weapon))
+    }
+  }
+
   return (
     <div className={style.container}>
       <div className={style.selectHeader}>
         <p className={style.headerText}>격화 효율 설정</p>
       </div>
       <div className={style.selectListBox}>
-        {WEAPON_LIST.map(weapon => 
-          <div key={weapon} className={style.weaponName} onClick={() => addUniqueWeaponList(weapon)}>
+        {WEAPON_LIST.map(weapon => {
+          const isSelected = weaponList.includes(weapon);
+          return (
+          <div key={weapon} className={`${style.weaponName} ${isSelected ? style.weaponSelected : ""}`} onClick={() => handleWeaponList(weapon)}>
             {weapon}
           </div>
+        )}
         )}
       </div>
     </div>

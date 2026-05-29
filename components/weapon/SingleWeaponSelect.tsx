@@ -114,7 +114,22 @@ function ElementList({weaponName}: WeaponProps) {
     <div className={style.weaponBox}>
       <div className={style.weaponHeader}>
         <p className={style.weaponHeaderText}>{weaponName}</p>
-        <input className={style.weaponDeleteButton} type="button" value={"삭제"} onClick={() => dispatch(removeWeapon(weaponName))} />
+        <svg 
+          className={style.deleteIcon}
+          onClick={() => dispatch(removeWeapon(weaponName))}
+          viewBox="0 0 10 10" 
+          fill="none"
+          >
+          <line
+            x1="1" x2="9"
+            y1="1" y2="9"
+          />
+          <line
+            x1="1" x2="9"
+            y1="9" y2="1"
+          />
+          <text>asdf</text>
+        </svg>
       </div>
       <div className={style.weaponElementBox}>
         {ELEMENT_LIST.map((element) => 

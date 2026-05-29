@@ -39,16 +39,15 @@
 .selectListBox {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 15px;
+  grid-column-gap: 1vh;
+  grid-row-gap: 1vw;
   place-items: center;
 
   width: 80%;
 
-  margin: 10px;
-  padding: 20px;
+  padding: 2vh;
 
-  border-radius: 30px;
+  border-radius: 10px;
 
   background-color: rgb(73, 84, 100);
 }
@@ -73,6 +72,13 @@
   font-size: 1.5em;
 
   transition: all 0.2s ease-in-out;
+}
+
+.weaponSelected {
+  border-color: rgb(150, 150, 150);
+
+  background-color: rgb(33, 33, 33);
+  color: rgb(232, 232, 232);
 }
 
 .weaponName:hover {
