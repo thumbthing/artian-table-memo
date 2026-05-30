@@ -13,19 +13,11 @@ import { KEY_PRESS } from "@/global/data/keyData";
 
 interface TarredDeviceInputProps {
   inputRef: RefObject<HTMLInputElement | null>,
-  handleInputState: (
-      keyPress: string, 
-      // addCount: number, 
-      inputRef: RefObject<HTMLInputElement | null>, 
-      deviceKey: AdvanceType,
-      eventCursor: number | null
-    ) => void
   handleKeyPressValue: (
       e: KeyboardEvent<HTMLInputElement>, 
       activeInput: AdvanceType | null, 
       deviceKey: AdvanceType
     ) => void
-  // handleFocusOnClick: (e: FocusEvent<HTMLInputElement> ,deviceKey: AdvanceType) => void,
   handleFocusOnClick: (e: MouseEvent<HTMLInputElement> ,deviceKey: AdvanceType) => void,
   deviceInput: Record<AdvanceType ,string>
   activeInput: AdvanceType | null,
@@ -36,7 +28,6 @@ interface TarredDeviceInputProps {
 
 function TarredDeviceInput({
   inputRef, 
-  handleInputState, 
   handleKeyPressValue, 
   handleFocusOnClick, 
   deviceInput,
@@ -45,52 +36,24 @@ function TarredDeviceInput({
   isSetting, 
   tarred,
 }: TarredDeviceInputProps) {
-
-  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-
-    if (inputValue.length < deviceInput[deviceKey].length) {
-      // handleInputState(KEY_PRESS.BackSpace, ADD_COUNT.keyPress, inputRef, deviceKey, e.currentTarget.selectionStart)
-      handleInputState(KEY_PRESS.BackSpace, inputRef, deviceKey, e.currentTarget.selectionStart)
-      return;
-    }
-
-    const onChangeCursor = e.target.selectionStart as number;
-    const lastInputChar = e.target.value[onChangeCursor - 1];
-
-    if (lastInputChar === undefined) return;
-
-    const keyPress = KEY_PRESS[lastInputChar];
-
-    if (keyPress === undefined) return;
-
-    // handleInputState(keyPress, ADD_COUNT.keyPress, inputRef, deviceKey, e.currentTarget.selectionStart);
-    handleInputState(keyPress, inputRef, deviceKey, e.currentTarget.selectionStart);
-    return;
-  }
-
   return (
     <div className={style.inputContainer} >
-      <label className={style.inputLabel} htmlFor={deviceKey}>
+      <label htmlFor={deviceKey}>
         <div className={style.inputBox}>
-          <p className={style.inputArea}>
-            {ADVANCE_CODE[deviceKey]} : 
-            <input 
-              ref={inputRef}
-              className={style.input}
-              id={deviceKey}
-              type="text"
-              inputMode="numeric"
-              name={deviceKey}
-              placeholder={`기존 : ${tarred[deviceKey]}`}
-              // value={deviceInput[deviceKey]}
-              // onChange={(e) => handleInput(e)}
-              defaultValue={deviceInput[deviceKey]}
-              onKeyDown={(e) => handleKeyPressValue(e, activeInput, deviceKey)}
-              onClick={(e) => handleFocusOnClick(e, deviceKey)}
-              disabled={!isSetting}
-            />
-          </p>
+          <p className={style.inputDeviceKey}>{ADVANCE_CODE[deviceKey]}</p>
+          <input 
+            ref={inputRef}
+            className={style.input}
+            id={deviceKey}
+            type="text"
+            inputMode="numeric"
+            name={deviceKey}
+            placeholder={`${tarred[deviceKey]}`}
+            defaultValue={isSetting ? deviceInput[deviceKey] : tarred[deviceKey]}
+            onKeyDown={(e) => handleKeyPressValue(e, activeInput, deviceKey)}
+            onClick={(e) => handleFocusOnClick(e, deviceKey)}
+            disabled={!isSetting}
+          />
         </div>
       </label>
     </div>
@@ -330,7 +293,7 @@ export default function DeviceInputBox() {
         } else {
           setActiveInput(prev => {
             const activeInputPosition = getActiveInputPosition(prev);
-            if (activeInputPosition < TARRED_DEVICE_ADVANCE_LIST.length) {
+            if (activeInputPosition < TARRED_DEVICE_ADVANCE_LIST.length - 1) {
               return TARRED_DEVICE_ADVANCE_LIST[activeInputPosition + 1];
             }
             return prev
@@ -384,7 +347,6 @@ export default function DeviceInputBox() {
         handleInputState(keyPress, inputRef, deviceKey, eventCursor);
       }
     }
-
   }
 
 // mousedown 시점
@@ -464,7 +426,6 @@ export default function DeviceInputBox() {
           <h2 className={style.deviceFormHeaderText}>부식된 장치</h2>
           <TarredDeviceInput 
             inputRef={attackInputRef} 
-            handleInputState={handleInputState}
             handleFocusOnClick={handleFocusOnClick}
             handleKeyPressValue={handleKeyPressValue}
             deviceInput={deviceInput}
@@ -475,7 +436,6 @@ export default function DeviceInputBox() {
           />
           <TarredDeviceInput 
             inputRef={affinityInputRef} 
-            handleInputState={handleInputState}
             handleFocusOnClick={handleFocusOnClick}
             handleKeyPressValue={handleKeyPressValue}
             deviceInput={deviceInput}
@@ -486,7 +446,6 @@ export default function DeviceInputBox() {
           />
           <TarredDeviceInput 
             inputRef={elementInputRef} 
-            handleInputState={handleInputState}
             handleFocusOnClick={handleFocusOnClick}
             handleKeyPressValue={handleKeyPressValue}
             deviceInput={deviceInput}
@@ -507,7 +466,6 @@ export default function DeviceInputBox() {
           getInputRef={getInputRef}
           handleInputState={handleInputState}
           setActiveInput={setActiveInput}
-          // addCount={ADD_COUNT.mouseClick}
           activeInput={activeInput}
           deviceInputCursor={deviceInputCursor}
         />

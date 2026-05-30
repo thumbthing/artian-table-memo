@@ -19,8 +19,6 @@
   justify-content: center;
   align-items: center;
   
-  width: 40vw;
-  
   margin: 1vw;
   padding: 1vw;
   gap: 2vw;
@@ -101,18 +99,16 @@
 
 .inputContainer {
   display: flex;
-  justify-content: start;
+  justify-content: center;
 
   height: 100%;
   width: 100%;
 
+  margin: 0.3vh;
+
   border-radius: 14px;
 
   background-color: rgb(232, 232, 232);
-}
-
-.inputLabel {
-  width: 100%;
 }
 
 .inputBox {
@@ -121,22 +117,19 @@
   align-items: center;
   justify-content: center;
 
-  width: 100%;
-  height: 100%;
-}
+  margin: 10px;
+  gap: 10px;
 
-.inputArea {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 4px;
-
-  height: 50%;
+  height: 4vh;
 
   font-size: 2vh;
-
   color: rgb(10, 10, 10);
+}
+
+.inputDeviceKey {
+  padding: 5px;
+
+  border-radius: 5px;
 }
 
 .input {
@@ -153,6 +146,8 @@
 
   color: rgb(10, 10, 10);
   background-color: rgb(187, 191, 202);
+
+  caret-color: rgb(73, 84, 100);
 }
 
 .input:focus {
@@ -167,5 +162,5 @@
 }
 
 .input::placeholder {
-  text-align: left;
+  text-align: center;
 }
