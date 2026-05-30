@@ -13,9 +13,19 @@
   dominant-baseline: middle;
 }
 
+.mappedButtonText {
+  font-size: 1.3vw;
+  font-weight: 900;
+  fill: rgb(10, 10, 10);
+}
+
 .button:hover {
   background-color: rgb(73, 84, 100);
   fill: rgb(232, 232, 232);
+
+  text {
+    fill: rgb(232, 232, 232);
+  }
 }
 
 .backspaceButton {
@@ -30,6 +40,10 @@
 .backspaceButton:hover {
   stroke: rgb(232, 232, 232);
   background-color: rgb(73, 84, 100);
+
+  text {
+    fill: rgb(232, 232, 232)
+  }
 }
 
 .resetButton {
@@ -57,6 +71,10 @@
 
   polygon {
     fill: rgb(232, 232, 232);
-  }
+  };
+
+  text {
+    fill: rgb(232, 232, 232)
+  };
 }
 

@@ -1,22 +1,18 @@
 import { Dispatch, RefObject, SetStateAction } from "react"
 import style from "./PadButton.module.css"
 import { AdvanceType } from "@/global/type/appType";
+import { ALLOWED_KEY } from "@/global/data/keyData";
 
 interface VirtualButtonProps {
-  // padKey: string,
-  // addCount: number,
-  // callback: (padKey: string, addCount: number) => void,
   getInputRef: (activeInput: AdvanceType | null) => 
     RefObject<HTMLInputElement | null> | null
   handleInputState: (
     keyPress: string, 
-    // addCount: number, 
     inputRef: RefObject<HTMLInputElement | null>, 
     deviceKey: AdvanceType,
     eventCursor: number | null
   ) => void,
 
-  // addCount: number,
   activeInput: AdvanceType | null,
   padKey: string,
   deviceInputCursor: Record<AdvanceType, number>
@@ -28,6 +24,11 @@ interface PadButtonProps {
 
 interface NumberButtonProps extends PadButtonProps {
   padKey: string;
+}
+
+const MAPPED_KEY_TEXT_POSITION: Record<string, string> = {
+  "x": "80%",
+  "y": "93%"
 }
 
 // TODO: svg
@@ -57,10 +58,6 @@ export default function VirtualButton({
   // addCount, 
   deviceInputCursor
 }: VirtualButtonProps) {
-  // const button = /[0-9]/.test(padKey) ? NumberButton : padKey;
-  // const button = padKey;
-
-  
   const padButtonClickHandler = () => {
     const inputRef = getInputRef(activeInput);
     if (activeInput === null || inputRef === null) return;
@@ -88,48 +85,28 @@ export default function VirtualButton({
               />
       }
     }
-
-  // if (button === padKey) {
-  //   switch(padKey) {
-  //     case "Backspace": {
-  //       return (
-  //         <BackSpaceButton padKey={padKey} addCount={addCount} callback={callback}/>
-  //       )
-  //     }
-  //     case "reset" : {
-  //       return (
-  //         <ResetButton padKey={padKey} addCount={addCount} callback={callback}/>
-  //       )
-  //     }
-  //   }
-  // } 
-
-  // return (
-  //   <NumberButton padKey={padKey} addCount={addCount} callback={callback} />
-  // )
 }
 
-// function NumberButton({padKey, addCount, callback}: PadButtonProps) {
 function NumberButton({padButtonClickHandler, padKey}: NumberButtonProps) {
   return (
     <svg 
       className={style.button} 
       viewBox="0 0 100 100" 
-      // onClick={() => callback(padKey, addCount)}
       onMouseDown={(e) => e.preventDefault()}
       onClick={() => padButtonClickHandler()}
     >
       <text className={style.buttonText} x="50%" y="60%">{padKey}</text>
+      {ALLOWED_KEY[padKey] !== undefined &&
+        <text className={style.mappedButtonText} x={MAPPED_KEY_TEXT_POSITION.x} y={MAPPED_KEY_TEXT_POSITION.y}>{ALLOWED_KEY[padKey]}</text>
+      }
     </svg>
   )
 }
 
-// function BackSpaceButton({padKey, addCount, callback}: PadButtonProps) {
 function BackSpaceButton({padButtonClickHandler}: PadButtonProps) {
   return (
     <svg
       className={style.backspaceButton}
-      // onClick={() => callback(padKey, addCount)}
       onMouseDown={(e) => e.preventDefault()}
       onClick={() => padButtonClickHandler()}
       viewBox="0 0 90 90"
@@ -138,22 +115,21 @@ function BackSpaceButton({padButtonClickHandler}: PadButtonProps) {
       <path 
         strokeWidth="7"
         strokeLinejoin="round"
-        d="M 7.5 45 l 20 -30 55 0 0 60 -55 0 -20 -30 Z"
+        d="M 10 45 l 20 -20 45 0 0 40 -45 0 -20 -20 Z"
       />
       <path
         strokeWidth="7"
-        d="M 40 60 l 22.5 -30 m -22.5 0 l 22.5 30"
+        d="M 42 53 l 18 -18 m -18 0 l 18 18"
       />
+      <text className={style.mappedButtonText} x={MAPPED_KEY_TEXT_POSITION.x} y={MAPPED_KEY_TEXT_POSITION.y}>{ALLOWED_KEY.Backspace}</text>
     </svg>
   )
 }
 
-// function ResetButton({padKey, addCount, callback}: PadButtonProps) {
 function ResetButton({padButtonClickHandler}: PadButtonProps) {
   return (
     <svg
       className={style.resetButton}
-      // onClick={() => callback(padKey, addCount)}
       onMouseDown={(e) => e.preventDefault()}
       onClick={() => padButtonClickHandler()}
       viewBox="0 0 90 90"
@@ -167,6 +143,7 @@ function ResetButton({padButtonClickHandler}: PadButtonProps) {
         points="25,60 46,50 46,75"
         transform="rotate(45 30 50)"
       />
+      <text className={style.mappedButtonText} x={MAPPED_KEY_TEXT_POSITION.x} y={MAPPED_KEY_TEXT_POSITION.y}>{ALLOWED_KEY.reset}</text>
     </svg>
   )
 }

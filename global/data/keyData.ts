@@ -44,3 +44,17 @@ export const KEY_PRESS: Record<string, string> = {
 }
 
 export const KEY_PAD: string[] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "reset", "0", "Backspace"];
+
+export const ALLOWED_KEY: Record<string, string> = {
+  "4": "Q",
+  "5": "W",
+  "6": "E",
+  
+  "7": "A",
+  "8": "S",
+  "9": "D",
+  
+  "reset": "Z",
+  "0": "X",
+  "Backspace": "C",
+};
