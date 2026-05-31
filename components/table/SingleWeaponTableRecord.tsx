@@ -52,12 +52,10 @@ function ElementTableRecord({weaponName, elementName, advanceSetting}: ElementTa
   }
 
   return (
-    <label>
-      <div className={`${style.singleElement} ${style[ELEMENT_CODE[elementName]]}`} onClick={() => handleOnClick()}>
-        <p>{elementName}</p>
-        <p>{elementTableRecord.length}</p>
-      </div>
-    </label>
+    <div className={`${style.singleElement} ${style[ELEMENT_CODE[elementName]]}`} onClick={() => handleOnClick()}>
+      <p>{elementName}</p>
+      <p>{elementTableRecord.length}</p>
+    </div>
   )
 }
 
@@ -66,7 +64,7 @@ export default function SingleWeaponTableRecord({weaponName, elementSetting}: Si
 
   return (
     <div className={style.box}>
-      <h3 className={style.weaponNameBox}>
+      <h3 className={style.weaponName}>
         {weaponName}
       </h3>
       <div className={style.elementBox}>
