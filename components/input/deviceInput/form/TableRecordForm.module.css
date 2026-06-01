@@ -1,8 +1,9 @@
 .form {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 
   padding: 10px;
+  gap: 10px;
 
   border-radius: 10px;
 
@@ -10,65 +11,116 @@
 }
 
 .deviceInputHeader {
+  text-align: center;
   color: rgb(232, 232, 232);
 }
 
 .deviceInputContainer {
+  display: flex;
+  flex-direction: column;
   background-color: rgb(73, 84, 100);
 
   padding: 5px;
+  gap: 5px;
 
   border-radius: 10px;
 
 }
 
 .tarredDeviceInputBox {
+  flex: 5;
+  display: flex;
+  flex-direction: row;
+
+  gap: 5px;
+}
+
+.tarredDeviceInputAreaBox {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  gap: 2px;
+  gap: 5px;
+
+  h3 {
+    text-align: center;
+  }
 }
+
+/* TableRecordInput style */
 
 .inputBox {
   display: flex;
+  justify-content: center;
+  align-items: center;
 
-  padding: 2px;
+  height: 100%;
+
+  padding: 10px;
 
   background-color: rgb(232, 232, 232);
 
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .inputArea {
-  font-size: 18px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  gap: 5px;
+  padding: 0 5px 0 5px;
+
+  text-align: center;
+  font-size: 2vh;
   color: rgb(10, 10, 10);
 }
 
 .input {
-  width: 60%;
-  height: 100%;
+  height: 3vh;
 
-  color: rgb(10, 10, 10);
   background-color: rgb(187, 191, 202);
-
+  
   border: none;
   border-radius: 10px;
-
+  
   text-align: center;
+  font-size: 1.5vh;
+  color: rgb(10, 10, 10);
+}
+
+.input:focus {
+  outline: none;
+}
+
+.skillSelectSubmitBox {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+
+  gap: 10px
+
 }
 
 .submitButton {
+  flex: 1;
   display: flex;
   align-items: center;
-
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
+  justify-content: center;
 
   border: none;
   border-radius: 10px;
+
+  background-color: rgb(255, 255, 255);
+
+  font-size: 2vh;
+  color: rgb(0, 0, 0);
 }
 
 .submitButton:disabled {
-  background-color: rgb(73, 84, 100);
+  background-color: rgb(73, 84, 100, 0.5);
   color: rgb(255, 255, 255);
 }
