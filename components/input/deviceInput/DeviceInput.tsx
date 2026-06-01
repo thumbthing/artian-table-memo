@@ -5,7 +5,7 @@ import { normalizeFormData} from "@/feature/parse/userInput/normalizeTarredDevic
 import { setInputAllDevice } from "@/feature/store/slices/tarred/tarredSlice";
 import { ADVANCE_CODE, TARRED_DEVICE_ADVANCE_LIST } from "@/global/data/appData";
 import { AdvanceType, TarredDeviceType } from "@/global/type/appType";
-import { ChangeEvent, KeyboardEvent, MouseEvent, RefObject, useLayoutEffect, useRef, useState } from "react";
+import { KeyboardEvent, MouseEvent, RefObject, useLayoutEffect, useRef, useState } from "react";
 import style from "./DeviceInput.module.css"
 import NumberPad from "@/components/numberPad/NumberPad";
 import { KEY_PRESS } from "@/global/data/keyData";
@@ -53,6 +53,7 @@ function TarredDeviceInput({
             onKeyDown={(e) => handleKeyPressValue(e, activeInput, deviceKey)}
             onClick={(e) => handleFocusOnClick(e, deviceKey)}
             disabled={!isSetting}
+            autoComplete="off"
           />
         </div>
       </label>
@@ -210,7 +211,7 @@ export default function DeviceInputBox() {
         
         const backSpaceExecInput = prevInput.slice(0, backSpaceActionCursor).concat(prevInput.slice(inputCursor));
         // inputRef.current?.setSelectionRange(backSpaceCursor, backSpaceCursor);
-        inputRef.current?.setSelectionRange(inputCursor, inputCursor);
+        // inputRef.current?.setSelectionRange(inputCursor, inputCursor);
         dispatchInputState(backSpaceActionCursor, backSpaceExecInput, deviceKey);
         break;
 
@@ -235,23 +236,20 @@ export default function DeviceInputBox() {
         break;
       }
       case "0": {
-        if (inputCursor === 0) break;
+        if (inputCursor === 0) {
+          if (prevInput.length > 0) break;
+        }
+
+        if (prevInput === "0") break;
       }
       default: {
+        if (prevInput === "0" && inputCursor >= 1) break;
         const charAddInput = prevInput.slice(0, inputCursor)
                                       .concat(keyPress, prevInput.slice(inputCursor));
         const charAddExecCursor = inputCursor + 1;
 
         inputRef.current?.setSelectionRange(charAddExecCursor, charAddExecCursor);
         dispatchInputState(charAddExecCursor, charAddInput, deviceKey)
-        
-        // const sliceIndex = inputCursor - 1 + addCount;
-        // const newString = prevInput.slice(0, sliceIndex).concat(keyPress, prevInput.slice(sliceIndex));
-        // const newCursor = inputCursor + addCount;
-
-        // inputRef.current?.setSelectionRange(newCursor, newCursor)
-        // setInputCursor(newCursor);
-        // dispatchInputState(newCursor, newString, deviceKey)
       }
     }
   }
@@ -287,7 +285,7 @@ export default function DeviceInputBox() {
               return TARRED_DEVICE_ADVANCE_LIST[activeInputPosition - 1];
             }
             const inputRef = getInputRef(activeInput);
-            inputRef?.current?.focus();
+            // inputRef?.current?.focus();
             return prev;
           });
         } else {
@@ -299,7 +297,7 @@ export default function DeviceInputBox() {
             return prev
           });
           const inputRef = getInputRef(activeInput);
-          inputRef?.current?.focus();
+          // inputRef?.current?.focus();
         }
         break;
       }
@@ -415,6 +413,11 @@ export default function DeviceInputBox() {
 
     setIsSetting(false);
     setActiveInput(null);
+    setDeviceInput({
+      attack: deviceForm.attack.toString(),
+      affinity: deviceForm.affinity.toString(),
+      element: deviceForm.element.toString()
+    })
     dispatch(setInputAllDevice(deviceForm))
   }
 
@@ -426,8 +429,8 @@ export default function DeviceInputBox() {
           <h2 className={style.deviceFormHeaderText}>부식된 장치</h2>
           <TarredDeviceInput 
             inputRef={attackInputRef} 
-            handleFocusOnClick={handleFocusOnClick}
             handleKeyPressValue={handleKeyPressValue}
+            handleFocusOnClick={handleFocusOnClick}
             deviceInput={deviceInput}
             activeInput={activeInput}
             deviceKey={"attack"} 
@@ -436,8 +439,8 @@ export default function DeviceInputBox() {
           />
           <TarredDeviceInput 
             inputRef={affinityInputRef} 
-            handleFocusOnClick={handleFocusOnClick}
             handleKeyPressValue={handleKeyPressValue}
+            handleFocusOnClick={handleFocusOnClick}
             deviceInput={deviceInput}
             activeInput={activeInput}
             deviceKey={"affinity"} 
@@ -446,8 +449,8 @@ export default function DeviceInputBox() {
           />
           <TarredDeviceInput 
             inputRef={elementInputRef} 
-            handleFocusOnClick={handleFocusOnClick}
             handleKeyPressValue={handleKeyPressValue}
+            handleFocusOnClick={handleFocusOnClick}
             deviceInput={deviceInput}
             activeInput={activeInput}
             deviceKey={"element"} 
