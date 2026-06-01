@@ -1,18 +1,13 @@
 "use client";
 
-import { ChangeEvent, Dispatch, Fragment, KeyboardEvent, RefObject, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
+import { Dispatch, Fragment, RefObject, SetStateAction } from "react";
 import style from "./NumberPad.module.css"
 import VirtualButton from "./PadButton";
-import { KEY_PRESS, KEY_PAD } from "@/global/data/keyData";
+import { KEY_PAD } from "@/global/data/keyData";
 import { AdvanceType } from "@/global/type/appType";
 import { ADVANCE_CODE, TARRED_DEVICE_ADVANCE_LIST } from "@/global/data/appData";
 
 // dispatchEvent는 보안상의 이유로 스크립트가 사용자 대신 타이핑하는 것을 막아두었다
-
-const ADD_COUNT = {
-  default: 0,
-  click: 1
-}
 
 interface NumberPadProps {
   getInputRef: (activeInput: AdvanceType | null)=> RefObject<HTMLInputElement | null> | null
