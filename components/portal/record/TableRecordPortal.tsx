@@ -22,24 +22,12 @@ export default function TableRecordPortal({weaponName, elementName}: TableRecord
     close
   }
 
-  // useEffect(() => {
-  //   const handler = (e: KeyboardEvent) => {
-  //     if (e.key === "Escape") close();
-  //   }
-
-  //   window.addEventListener("keydown", handler)
-
-  //   return () => {
-  //     window.removeEventListener("keydown", handler);
-  //   }
-  // }, [])
-
   return createPortal(
     <div className={style.overlay} onClick={() => {closePortal()}}>
       <div className={style.recordBox} onClick={(e) => e.stopPropagation()}>
-        <div className={style.weaponInfo}>
-          <h3>무기 : {weaponName}</h3>
-          <h3>속성 : {elementName}속성</h3>
+        <div className={style.weaponInfoBox}>
+          <h2>테이블 기록</h2>
+          <h3>{weaponName} {elementName}속성</h3>
         </div>
         <TableRecordForm weaponName={weaponName} elementName={elementName}/>
       </div>

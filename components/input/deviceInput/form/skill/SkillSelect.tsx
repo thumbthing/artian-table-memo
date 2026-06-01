@@ -11,33 +11,35 @@ export default function SkillSelect() {
   const groupSkill = useAppSelector(state => state.table.groupSkill);
 
   return (
-    <div className={style.box}>
-      <div className={style.seriesSkillBox}>
-        <p className={style.skillSelectHeader}>
-          시리즈 스킬 : 
-        </p>
-        <input 
-          type="text" 
-          name="seriesSkill"
-          defaultValue={seriesSkill}
-          hidden={true}
-        />
-        <div className={style.seriesSkillSelectButton} onClick={() => dispatch(setSeriesSkillSelecting(true))}>{seriesSkill === "" ? "스킬 목록" : seriesSkill}</div>
-      </div>
-      <div className={style.groupSkillBox}>
-        <p className={style.skillSelectHeader}>그룹 스킬 :</p>
-        <input 
-          type="text" 
-          name="groupSkill" 
-          defaultValue={groupSkill} 
-          hidden={true} 
-          autoComplete="false"
-        />
-        <div className={style.groupSkillSelectBox}>
-          <div className={style.groupSkillSelectButton} onClick={() => dispatch(setGroupSkillSelecting(true))}>{groupSkill === "" ? "스킬 목록" : groupSkill}</div>
-        {groupSkill === "" &&
-          <div className={style.groupSkillSelectButton} onClick={() => dispatch(setGroupSkill("주인의 혼"))}>주인의 혼</div>
-        }
+    <div className={style.container}>
+      <h3 className={style.skillSelectHeader}>스킬 선택</h3>
+      <div className={style.skillSelectButtonBox}>
+        <div className={style.seriesSkillButtonBox}>
+          <input 
+            type="text" 
+            name="seriesSkill"
+            defaultValue={seriesSkill}
+            hidden={true}
+            autoComplete="off"
+          />
+          <div onClick={() => dispatch(setSeriesSkillSelecting(true))}>
+            {seriesSkill === "" ? "시리즈 스킬" : seriesSkill}
+          </div>
+        </div>
+        <div className={style.groupSkillButtonBox}>
+          <input 
+            type="text" 
+            name="groupSkill" 
+            defaultValue={groupSkill} 
+            hidden={true} 
+            autoComplete="off"
+          />
+          <div onClick={() => dispatch(setGroupSkillSelecting(true))}>
+            {groupSkill === "" ?"그룹 스킬" : groupSkill}
+          </div>
+          {groupSkill === "" &&
+            <div className={""} onClick={() => dispatch(setGroupSkill("주인의 혼"))}>주인의 혼</div>
+          }
         </div>
       </div>
     </div>
