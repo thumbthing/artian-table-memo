@@ -4,10 +4,35 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import style from "./TableRecordList.module.css"
 import { removeTableRecord } from "@/feature/store/slices/table/tableSlice";
 import { Fragment } from "react/jsx-runtime";
+import { TableRecordType } from "@/global/type/extendedType";
+
+interface TableRecordProps {
+  tableRecord: TableRecordType,
+  index: number
+}
+
+function TableRecord({tableRecord, index}: TableRecordProps) {
+  const dispatch = useAppDispatch();
+
+  return (
+    <label className={style.recordLabel} onClick={() => dispatch(removeTableRecord(index))}>
+      <div className={style.orderBox}>
+        <p className={""}>{tableRecord.order}</p>
+      </div>
+      <div className={style.weaponBox}>
+        <p className={""}>{tableRecord.weaponName}</p>
+        <p className={""}>{tableRecord.elementName}속성</p>
+      </div>
+      <div className={style.skillBox}>
+        <p>{tableRecord.seriesSkill}</p>
+        <p>{tableRecord.groupSkill}</p>
+      </div>
+    </label>
+  )
+}
 
 export default function TableRecordList() {
   const recordList = useAppSelector(state => state.table.tableRecordList);
-  const dispatch = useAppDispatch();
 
   return (
     <div className={style.box}>
@@ -19,26 +44,7 @@ export default function TableRecordList() {
         {recordList.map((record, index) => {
           return (
             <Fragment key={`record-${record.weaponName}-${record.elementName}-${record.order}-${index}`}>
-              <label onClick={() => dispatch(removeTableRecord(index))}>
-                <div className={style.record}>
-                  <div className={style.recordInfoBox}>
-                    <div className={style.weaponTag}>
-                      <p>{record.weaponName}</p>
-                      <p>{record.elementName}속성</p>
-                    </div>
-                    <div className={style.orderTag}>
-                      <p>테이블</p>
-                      <p>{record.order}</p>
-                    </div>
-                  </div>
-                  <div className={style.skillTag}>
-                    <div className={style.skillRecord}>
-                      <p>{record.seriesSkill}</p>
-                      <p>{record.groupSkill}</p>
-                    </div>
-                  </div>
-                </div>
-              </label>
+              <TableRecord tableRecord={record} index={index} />
             </Fragment>
           )
         })}

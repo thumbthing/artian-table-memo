@@ -3,6 +3,7 @@
 import { useAppSelector } from "@/app/hooks";
 import SingleWeaponTableRecord from "./SingleWeaponTableRecord";
 import { getAdvanceWeaponObject } from "@/feature/parse/object/getAdvanceWeapon";
+import { Fragment } from "react/jsx-runtime";
 
 export default function WeaponTableRecordBox() {
   const weaponList = useAppSelector(state => state.weapon.weaponList)
@@ -16,9 +17,9 @@ export default function WeaponTableRecordBox() {
         weaponList.map((weapon) => {
           if (weaponAdvanceSetting[weapon]) {
             return (
-              <div key={weapon}>
+              <Fragment key={weapon}>
                 <SingleWeaponTableRecord weaponName={weapon} elementSetting={weaponAdvanceSetting[weapon]} />
-              </div>
+              </Fragment>
             )
           }
         })

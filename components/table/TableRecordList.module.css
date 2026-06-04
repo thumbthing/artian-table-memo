@@ -6,13 +6,12 @@
   gap: 3px;
   margin: 10px;
 
-  width: 30%;
+  width: 18vw;
   height: 80vh;
   overflow-y: auto;
 
-  border-radius: 25px;
+  border-radius: 10px;
 
-  background-color: rgb(187, 191, 202);
   background-color: rgb(73, 84, 100);
 }
 
@@ -24,9 +23,9 @@
 
   position: absolute;
 
-  padding: 5px;
+  width: calc(18vw - 10px - 3px);
 
-  width: 20%;
+  border-radius: 10px 10px 0 0;
 
   background-color: rgb(73, 84, 100);
 
@@ -42,107 +41,96 @@
 .recordBox {
   display: flex;
   flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
 
   margin-top: 12vh;
+
 }
 
-.record {
-  display: flex;
-  flex-direction: column;
+/* 기록된 테이블 스타일 */
 
-  padding: 3px;
-  margin: 5px;
+.recordLabel {
+  display: grid;
+  grid-template-areas: 
+    "order weapon skill"
+  ;
+  grid-template-columns: minmax(2vw, 3vw) minmax(5vw, 5vw) minmax(7.5vw, 7.5vw);
 
-  border: solid 1px rgb(232, 232, 232);
+  margin: 10px 10px 0px 10px;
+  padding: 5px;
+  gap: 5px;
+
   border-radius: 10px;
 
-  width: 100%;
-
-
-  border: solid 3px rgb(187, 191, 202);
-
   background-color: rgb(187, 191, 202);
-}
 
-.record:hover {
-  border-color: rgb(232, 232, 232);
-  background-color: rgb(73, 84, 100);
-
-  .recordInfoBox > .weaponTag, .orderTag,
-  .skillTag {
-    background-color: rgb(187, 191, 202);
-  }
-
-
-}
-
-.recordInfoBox{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.weaponTag {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-
-  text-align: center;
-
-  margin: 2px;
-
-  width: 100%;
-  border-radius: 25px;
-
-  background-color: rgb(232, 232, 232);
-
-  p {
-    color: rgb(10, 10, 10);
+  div {
+    padding: 5px;
   }
 }
 
-.orderTag {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+.recordLabel:hover {
+  background-color: rgb(232, 232, 232, 0.9);
 
-  text-align: center;
+  .orderBox, .weaponBox, .skillBox {
+    background-color: rgb(73, 84, 100, 0.8);
 
-  margin: 2px;
+    p {
+      color: rgb(232, 232, 232, 0.9)
+    }
+  }
+}
 
-  width: 100%;
+.orderBox {
+  grid-area: order;
   
-  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
 
   background-color: rgb(232, 232, 232);
   
   p {
-    color: rgb(10, 10, 10);
+    margin: 0;
   }
 }
 
-.skillTag {
+.weaponBox {
+  grid-area: weapon;
+  
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  align-items: end;
+  
 
-  margin: 2px;
-  padding: 10px;
-
-  border-radius: 25px;
+  border-radius: 10px;
 
   background-color: rgb(232, 232, 232);
-}
-
-.skillRecord {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
 
   p {
-    color: rgb(10, 10, 10);
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.skillBox {
+  grid-area: skill;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+
+  border-radius: 10px;
+
+  background-color: rgb(232, 232, 232);
+
+  p {
+    margin: 0;
+    text-align: right;
   }
 }
