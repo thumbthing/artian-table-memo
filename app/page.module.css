@@ -9,7 +9,6 @@ body {
   gap: 10px;
   padding: 10vh;
 
-  /* background-color: rgb(232, 232, 232); */
 }
 
 .header {
@@ -55,8 +54,15 @@ body {
   color: rgb(232, 232, 232);
 
   border-radius: 10px;
+  border: solid 3px;
+  border-color: rgb(73, 84, 100);
 
   background-color: rgb(73, 84, 100);
+}
+
+.atianNavigateButton:hover {
+  background-color: rgb(232, 232, 232);
+  color: rgb(73, 84, 100);
 }
 
 .gogmaziosArtianNavigateButton {
@@ -73,6 +79,13 @@ body {
   color: rgb(232, 232, 232);
 
   border-radius: 10px;
+  border: solid 3px;
+  border-color: rgb(73, 84, 100);
 
   background-color: rgb(73, 84, 100);
+}
+
+.gogmaziosArtianNavigateButton:hover {
+  background-color: rgb(232, 232, 232);
+  color: rgb(73, 84, 100);
 }
