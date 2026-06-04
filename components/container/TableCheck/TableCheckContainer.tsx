@@ -13,6 +13,8 @@ import AdvanceSettingParamError from "@/feature/error/customError/AdvanceSetting
 import useRouterPush from "@/feature/hook/useRouterPush";
 import { ROUTE } from "@/global/data/routeData";
 import checkAdvanceSettingParam from "@/feature/validate/url/checkAdvanceSettingParam";
+import { getTypedObjectValues } from "@/feature/customFeature/object/objectParse";
+import TarredDeviceNotice from "@/components/notice/tableCheck/TarredDeviceNotice";
 
 export default function TableCheckContainer() {
   const searchParam = useSearchParams();
@@ -20,6 +22,7 @@ export default function TableCheckContainer() {
   
   const weaponHydrateState = useAppSelector(state => state.weapon.hydrated);
   const advanceParam = useAppSelector(state => state.urlParam.advanceSettingParam);
+  const tarredDevice = useAppSelector(state => state.tarred.input);
   
   const dispatch = useAppDispatch();
   
@@ -65,8 +68,14 @@ export default function TableCheckContainer() {
 
   return (
     <main className={style.recordContainer}>
-      <WeaponTableRecordBox />
-      <TableRecordList />
+      {getTypedObjectValues(tarredDevice).every(deviceAmount => deviceAmount === 0) ?
+        <TarredDeviceNotice />
+        :
+        <>
+          <WeaponTableRecordBox />
+          <TableRecordList />
+        </>
+      }
     </main>
   )
 }
