@@ -14,6 +14,7 @@ import { getDefaultAdvanceCodeSetting } from "@/feature/parse/object/getDefaultW
 import createAdvanceSettingParamList from "@/feature/url/urlString/createAdvanceSettingParam";
 import { setAdvanceSettingParam } from "@/feature/store/slices/urlParam/urlParamSlice";
 import { setHydrate } from "@/feature/store/slices/weapon/weaponSlice";
+import { usePathname } from "next/navigation";
 
 const ADVANCE_SETTING_NOTICE_TEXT = {
   header: "격화 효율이 설정되지 않았습니다.",
@@ -25,13 +26,18 @@ export default function NavigateTableCheckButton() {
   // TODO: shallow equl 정리
   const weaponList = useAppSelector(state => state.weapon.weaponList);
   const weaponSetting = useAppSelector(state => state.weapon.weaponSetting);
+  const weaponParam = useAppSelector(state => state.urlParam.advanceSettingParam);
+
 
   const dispatch = useAppDispatch();
   const routerPush = useRouterPush();
 
   const [ isParamInValid, setIsParamInValid ] = useState<boolean | undefined>(undefined);
   const [ unSetWeaponList, setUnsetWeaponList ] = useState<WeaponType[]>([]);
-  const buttonText = "설정 저장 후 \n\n테이블 확인으로 이동"
+
+  const pathName = usePathname();
+
+  const buttonText = "테이블 확인으로 이동";
 
   // 
   const getAdvanceSettingCode = (weaponList: WeaponType[],weaponSetting: WeaponAdvanceSettingType) => {
@@ -62,6 +68,11 @@ export default function NavigateTableCheckButton() {
 
 // TODO: Omit 타입 정리
   const handleOnClick = () => {
+    if (pathName === "/skill-assignment") {
+      routerPush(`${ROUTE.tableCheck}?advance=${weaponParam}`);
+      return;
+    }
+
     const tableCheckUrl = getTableCheckUrl();
 
     if (tableCheckUrl === undefined || tableCheckUrl === "") {
