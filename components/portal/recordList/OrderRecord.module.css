@@ -1,0 +1,92 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1vh;
+}
+
+.hide {
+  display: none;
+}
+
+.box {
+  display: flex;
+  flex-direction: row;
+
+  border-radius: 10px;
+
+  background-color: rgb(187, 191, 202);
+}
+
+.orderNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 6vw;
+
+  border-radius: 10px 0 0 10px;
+
+  background-color: rgb(73, 84, 100);
+
+  color: rgb(232, 232, 232);
+  font-size: 3vw;
+}
+
+/* Deck */
+
+.deck {
+  display: flex;
+  flex-direction: row;
+
+  padding-left: 1vh;
+  gap: 1vh;
+}
+
+/* Card */
+
+.card {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 8vw;
+
+  margin: 5px 5px 5px 0px;
+  padding: 5px;
+
+  border: solid 1px rgb(73, 84, 100);
+  border-radius: 10px;
+
+  background-color: rgb(232, 232, 232);
+}
+
+.weaponInfoTag {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+
+  margin: 0px;
+  gap: 10px;
+
+  p {
+    margin: 0px;
+    /* text-align: start; */
+    font-size: 2vh;
+    color: rgb(10, 10, 10);
+  }
+}
+
+.skillInfoTag {
+  display: flex;
+  flex-direction: column;
+  
+  gap: 1px;
+  
+  p {
+    margin: 0px;
+    text-align: end;
+    color: rgb(10, 10, 10);
+  }
+}
+

@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 1.5vh;
+  padding: 1vw;
+}
+
+.hide {
+  display: none;
+}
+
+.weaponBox {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  border: solid 5px rgb(73, 84, 100);
+  border-radius: 10px;
+}
+
+.weaponName {
+  border-radius: 5px;
+  
+  background-color: rgb(232, 232, 232);
+
+  font-size: 6vh;
+  text-align: center;
+  color: rgb(73, 84, 100);
+}
+
+.singleWeaponRecordBox {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+
+  padding: 10px 0 10px 0;
+  gap: 0.1vw;
+
+  border-radius: 0 0 5px 5px;
+
+  background-color: rgb(187, 191, 202);
+}
+
+.elementBox {
+  display: flex;
+  flex-direction: column;
+  
+  gap: 0.5vh;
+
+  /* border: solid; */
+}
+
+.elementName {
+  font-size: 4vh;
+  text-align: center;
+
+}
+
+.card {
+  display: grid;
+  grid-template-areas: 
+  "order seriesSkill"
+  "order groupSkill";
+
+  margin: 0 5px 0 5px;
+  padding: 2px 3px 2px 3px;
+
+  border: solid 1px rgb(73, 84, 100);
+  border-radius: 5px;
+
+  background-color: rgb(232, 232, 232);
+
+  p {
+    margin: 0px;
+    color: rgb(10, 10, 10);
+    font-size: 1.6vh;
+  }
+}
+
+.orderText {
+  grid-area: order;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.seriesSkillText {
+  grid-area: seriesSkill;
+  text-align: end;
+}
+
+.groupSkillText {
+  grid-area: groupSkill;
+  text-align: end;
+}
