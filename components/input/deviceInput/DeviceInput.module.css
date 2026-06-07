@@ -146,8 +146,10 @@
 
   color: rgb(10, 10, 10);
   background-color: rgb(187, 191, 202);
+}
 
-  caret-color: rgb(73, 84, 100);
+.input:read-only {
+  caret-color: rgb(10, 10, 10);
 }
 
 .input:focus {

@@ -36,11 +36,13 @@ function TarredDeviceInput({
   isSetting, 
   tarred,
 }: TarredDeviceInputProps) {
+
   return (
     <div className={style.inputContainer} >
       <label htmlFor={deviceKey}>
         <div className={style.inputBox}>
           <p className={style.inputDeviceKey}>{ADVANCE_CODE[deviceKey]}</p>
+          {isSetting ? 
           <input 
             ref={inputRef}
             className={style.input}
@@ -49,12 +51,18 @@ function TarredDeviceInput({
             inputMode="numeric"
             name={deviceKey}
             placeholder={`${tarred[deviceKey]}`}
-            defaultValue={deviceInput[deviceKey]}
+            value={deviceInput[deviceKey]}
+            onChange={() => {}}
             onKeyDown={(e) => handleKeyPressValue(e, activeInput, deviceKey)}
             onClick={(e) => handleFocusOnClick(e, deviceKey)}
-            disabled={!isSetting}
             autoComplete="off"
           />
+          :
+          <input 
+            className={style.input}
+            value={tarred[deviceKey]} 
+            disabled={true}/>
+          }
         </div>
       </label>
     </div>
@@ -157,8 +165,8 @@ export default function DeviceInputBox() {
     if (activeInput === null) return;
     const ref = getInputRef(activeInput);
     const cursor = deviceInputCursor[activeInput];
-    ref?.current?.setSelectionRange(cursor, cursor);
     ref?.current?.focus();
+    ref?.current?.setSelectionRange(cursor, cursor);
   }, [deviceInput, activeInput])
 
   // refactoring => getActiveDeviceInput
@@ -277,6 +285,7 @@ export default function DeviceInputBox() {
     if (deviceKey !== activeInput) return;
     // if (eventCursor === null) return;
 
+
     switch(keyPress) {
       case "Tab": {
         if (e.shiftKey === true) {
@@ -285,7 +294,7 @@ export default function DeviceInputBox() {
             if (activeInputPosition > 0) {
               return TARRED_DEVICE_ADVANCE_LIST[activeInputPosition - 1];
             }
-            const inputRef = getInputRef(activeInput);
+            // const inputRef = getInputRef(activeInput);
             // inputRef?.current?.focus();
             return prev;
           });
@@ -297,7 +306,7 @@ export default function DeviceInputBox() {
             }
             return prev
           });
-          const inputRef = getInputRef(activeInput);
+          // const inputRef = getInputRef(activeInput);
           // inputRef?.current?.focus();
         }
         break;
