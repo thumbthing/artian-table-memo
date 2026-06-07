@@ -135,8 +135,6 @@ export default function DeviceInputBox() {
   const tarredDevice = useAppSelector(state => state.tarred.input);
   const isSetting = useAppSelector(state => state.tarred.isSetting);
 
-  // const [isSetting, setIsSetting] = useState<boolean>(true);
-  // const [inputCursor, setInputCursor] = useState<number>(0);
   const [deviceInputCursor, setDeviceInputCursor] = useState<Record<AdvanceType, number>>({
     attack: 0,
     affinity: 0,
