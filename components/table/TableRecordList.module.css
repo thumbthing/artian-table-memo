@@ -82,6 +82,8 @@
   padding: 5px;
   gap: 5px;
 
+
+
   border-radius: 10px;
 
   background-color: rgb(187, 191, 202);
@@ -116,6 +118,7 @@
   
   p {
     margin: 0;
+    color: rgb(10, 10, 10);
   }
 }
 
@@ -126,7 +129,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: end;
-  
+
 
   border-radius: 10px;
 
@@ -135,6 +138,8 @@
   p {
     margin: 0;
     text-align: center;
+    font-size: 1.5vh;
+    color: rgb(10, 10, 10);
   }
 }
 
@@ -153,5 +158,6 @@
   p {
     margin: 0;
     text-align: right;
+    color: rgb(10, 10, 10);
   }
 }

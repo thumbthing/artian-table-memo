@@ -22,7 +22,7 @@ function TableRecord({tableRecord, index}: TableRecordProps) {
       </div>
       <div className={style.weaponBox}>
         <p className={""}>{tableRecord.weaponName}</p>
-        <p className={""}>{tableRecord.elementName}속성</p>
+        <p className={""}>{tableRecord.elementName}</p>
       </div>
       <div className={style.skillBox}>
         <p>{tableRecord.seriesSkill}</p>
