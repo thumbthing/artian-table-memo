@@ -64,10 +64,6 @@ export default function RecordListPortal() {
       {isEmptyRecordList ?
         <div className={style.noRecordNoticeText}>테이블 기록이 존재하지 않습니다.</div>
         :
-        // recordOrderList.map((order, index) => 
-        // <div key={`record-list-${order}-${index}`} style={{display: viewRule === "table" ? "block" : "none"}}>
-        //   <TableOrderRecordDeck recordList={recordList} order={order}/>
-        // </div>)
         <RecordDeck 
           recordList={recordList} 
           recordOrderList={recordOrderList} 

@@ -24,16 +24,37 @@
   position: absolute;
 
   width: calc(18vw - 10px - 3px);
+  height: 12vh;
 
   border-radius: 10px 10px 0 0;
 
   background-color: rgb(73, 84, 100);
 
   h3 {
+    margin-top: 3vh;
     color: rgb(232, 232, 232);
   }
 
+  div {
+    margin: 0;
+    padding: 0.5vh;
+
+    border: solid 3px rgb(187, 191, 202);
+    border-radius: 5px;
+
+    background-color: rgb(187, 191, 202);
+
+    color: rgb(73, 84, 100);
+  }
+  
+  div:hover {
+    background-color: rgb(232, 232, 232);
+    color: rgb(10, 10, 10);
+  }
+
   p {
+    padding-bottom: 10px;
+    font-size: 1.5vh;
     color: rgb(232, 232, 232);
   }
 }
@@ -44,7 +65,7 @@
   justify-content: center;
   align-items: center;
 
-  margin-top: 12vh;
+  margin-top: 13vh;
 
 }
 
