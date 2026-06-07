@@ -2,7 +2,7 @@
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { normalizeFormData} from "@/feature/parse/userInput/normalizeTarredDeviceInput";
-import { setInputAllDevice } from "@/feature/store/slices/tarred/tarredSlice";
+import { setInputAllDevice, setIsSetting } from "@/feature/store/slices/tarred/tarredSlice";
 import { ADVANCE_CODE, TARRED_DEVICE_ADVANCE_LIST } from "@/global/data/appData";
 import { AdvanceType, TarredDeviceType } from "@/global/type/appType";
 import { KeyboardEvent, MouseEvent, RefObject, useLayoutEffect, useRef, useState } from "react";
@@ -49,7 +49,7 @@ function TarredDeviceInput({
             inputMode="numeric"
             name={deviceKey}
             placeholder={`${tarred[deviceKey]}`}
-            defaultValue={isSetting ? deviceInput[deviceKey] : tarred[deviceKey]}
+            defaultValue={deviceInput[deviceKey]}
             onKeyDown={(e) => handleKeyPressValue(e, activeInput, deviceKey)}
             onClick={(e) => handleFocusOnClick(e, deviceKey)}
             disabled={!isSetting}
@@ -125,7 +125,9 @@ function TarredDeviceInput({
 export default function DeviceInputBox() {
   const dispatch = useAppDispatch();
   const tarredDevice = useAppSelector(state => state.tarred.input);
-  const [isSetting, setIsSetting] = useState<boolean>(true);
+  const isSetting = useAppSelector(state => state.tarred.isSetting);
+
+  // const [isSetting, setIsSetting] = useState<boolean>(true);
   // const [inputCursor, setInputCursor] = useState<number>(0);
   const [deviceInputCursor, setDeviceInputCursor] = useState<Record<AdvanceType, number>>({
     attack: 0,
@@ -196,7 +198,6 @@ export default function DeviceInputBox() {
   ) => {
     // const refCursor = inputRef?.current?.selectionStart as number;
     // const prevString = deviceInput[deviceKey];
-    
     const inputCursor = eventCursor === null ? deviceInputCursor[deviceKey] : eventCursor;
     const prevInput = deviceInput[deviceKey];
 
@@ -381,24 +382,27 @@ export default function DeviceInputBox() {
       if (prev === deviceKey) return prev;
       return deviceKey
     });
-    // setInputCursor(prev => {
-    //   if (prev === cursor) return prev;
-    //   return cursor
-    // });
     setDeviceInputCursor(prev => ({
       ...prev,
       [deviceKey]: cursor
     }))
   }
 
-  const handleOnCheck = (isChecked: boolean) => {
-    setIsSetting(prev => !prev);
-    if (isChecked === true) {
+  const handleIsSetting = (e: MouseEvent<HTMLInputElement> ,isSetting: boolean) => {
+    e.preventDefault();
+
+    dispatch(setIsSetting(isSetting));
+    if (isSetting === true) {
       setDeviceInputCursor({
         "attack": deviceInput.attack.length,
         "affinity": deviceInput.affinity.length,
         "element": deviceInput.element.length
       });
+      setDeviceInput({
+        attack: tarredDevice.attack.toString(),
+        affinity: tarredDevice.affinity.toString(),
+        element: tarredDevice.element.toString()
+      })
     }
   }
 
@@ -419,6 +423,7 @@ export default function DeviceInputBox() {
       element: deviceForm.element.toString()
     })
     dispatch(setInputAllDevice(deviceForm))
+    dispatch(setIsSetting(false))
   }
 
   return (
@@ -458,11 +463,11 @@ export default function DeviceInputBox() {
             tarred={tarredDevice}
           />
           <div className={style.submitBox}>
-            <input className={style.submitButton} type="submit" value={isSetting ? "저장" : ""} disabled={!isSetting}/>
-            <p className={style.submitLock}>
-              {isSetting ? "잠금" : "해제"}
-              <input type="checkbox" checked={!isSetting} onChange={() => handleOnCheck(true)}/>
-            </p>
+            {isSetting ? 
+              <input className={style.submitButton} type="submit" value={"저장"}/>
+              :
+              <input className={style.submitButton} type="button" value={"잠금 해제"} onClick={(e) => handleIsSetting(e, true)}/>
+            }
           </div>
         </div>
         <NumberPad 
