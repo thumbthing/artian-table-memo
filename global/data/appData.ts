@@ -26,13 +26,13 @@ export const WEAPON_CODE: WeaponCodeType[] = [
                                               "hb", "bw"
 ]
 
-export const ELEMENT_LIST: ElementType[] = ["화", "수", "뇌", "빙", "용", "독", "마비", "수면", "폭파", "무"];
+export const ELEMENT_LIST: ElementType[] = ["불", "물", "번개", "얼음", "용", "독", "마비", "수면", "폭파", "무"];
 
 export const ELEMENT_CODE: Record<ElementType, ElementEnType> = {
-  "화": "fire",
-  "수": "water",
-  "뇌": "electric",
-  "빙": "ice",
+  "불": "fire",
+  "물": "water",
+  "번개": "electric",
+  "얼음": "ice",
   "용": "dragon",
   "독": "poison",
   "마비": "paralyze",

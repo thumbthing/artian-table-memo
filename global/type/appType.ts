@@ -6,7 +6,7 @@ export type WeaponType = "대검" | "태도" |
                   "조충곤" | "라이트보우건" | 
                   "해비보우건" | "활";
 
-export type ElementType = "화" | "수" | "뇌" | "빙" | "용" | "독" | "마비" | "수면" | "폭파" | "무";
+export type ElementType = "불" | "물" | "번개" | "얼음" | "용" | "독" | "마비" | "수면" | "폭파" | "무";
 export type ElementEnType = "fire" |"water" | "electric" | "ice" | "dragon" | "poison" | "paralyze" | "sleep" | "explosion" | "none";
 
 export type AdvanceKrType = "공격" | "회심" | "속성";
