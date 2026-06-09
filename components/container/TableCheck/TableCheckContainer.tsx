@@ -5,8 +5,6 @@ import { getUrlParamPayload } from "@/feature/parse/urlParam/encodeUrlParam";
 import { setHydrate } from "@/feature/store/slices/weapon/weaponSlice";
 import { useSearchParams } from "next/navigation"
 import { useEffect } from "react";
-import WeaponTableRecordBox from "@/components/table/WeaponTableRecordBox";
-import TableRecordList from "@/components/table/TableRecordList";
 import style from "./TableCheckContainer.module.css"
 import { initFromUrlParam } from "@/feature/store/thunks/initFromUrlParam";
 import AdvanceSettingParamError from "@/feature/error/customError/AdvanceSettingParamError";
@@ -15,6 +13,7 @@ import { ROUTE } from "@/global/data/routeData";
 import checkAdvanceSettingParam from "@/feature/validate/url/checkAdvanceSettingParam";
 import { getTypedObjectValues } from "@/feature/customFeature/object/objectParse";
 import TarredDeviceNotice from "@/components/notice/tableCheck/TarredDeviceNotice";
+import TableCheckMainBox from "./main/TableCheckMainBox";
 
 export default function TableCheckContainer() {
   const searchParam = useSearchParams();
@@ -71,10 +70,7 @@ export default function TableCheckContainer() {
       {getTypedObjectValues(tarredDevice).every(deviceAmount => deviceAmount === 0) ?
         <TarredDeviceNotice />
         :
-        <>
-          <WeaponTableRecordBox />
-          <TableRecordList />
-        </>
+        <TableCheckMainBox />
       }
     </main>
   )

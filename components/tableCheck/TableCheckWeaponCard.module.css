@@ -1,0 +1,162 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+
+  margin: 1.5vh;
+
+  border-radius: 10px;
+
+  background-color: rgb(232, 232, 232);
+}
+
+.weaponName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 3vh;
+
+  color: rgb(30, 30, 30);
+}
+
+.deActivateButton {
+  stroke: rgb(10, 10, 10);
+  stroke-width: 10px;
+
+  position: absolute;
+  top: 1vh;
+  right: 1vh;
+
+  width: 2vw;
+
+  padding: 3px;
+
+  border-radius: 5px;
+}
+
+.deActivateButton:hover {
+  stroke: rgb(232, 232, 232);
+  background-color: rgb(73, 84, 100);
+
+}
+
+.elementBox {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 1px;
+
+  gap: 0.5vh;
+  padding: 1vh;
+
+  border-radius: 0 0 10px 10px;
+
+  background-color: rgb(187, 191, 202);
+}
+
+
+/* 속성 / 확인 갯수 */
+.singleElement {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  margin: 5px;
+
+  width: 5vw;
+  height: 3vh;
+  min-height: 3vh;
+  min-width: 6vw;
+
+  border: solid 3px;
+  border-radius: 4px;
+
+  cursor: pointer;
+  
+  p {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    height: 100%;
+
+    border-radius: 5px;
+
+    text-align: center;
+    color: rgb(10, 10, 10);
+  }
+}
+
+.singleElement:hover {
+  background-color: rgb(240, 240, 240);
+}
+
+/* button style */
+
+.unSet {
+  border-color: rgb(187, 191, 202);
+  background-color: rgb(187, 191, 202);
+
+  cursor: default;
+
+  p {
+    color: rgb(187, 191, 202);
+  }
+}
+
+.unSet:hover {
+  background-color: rgb(187, 191, 202);
+}
+
+.fire {
+  border-color: rgb(212, 60, 60);
+  background-color: rgb(212, 60, 60);
+}
+
+.water {
+  border-color: rgb(50, 96, 232);
+  background-color: rgb(50, 96, 232);
+}
+
+.electric {
+  border-color: rgb(255, 247, 0);
+  background-color: rgb(255, 247, 0);
+}
+
+.ice {
+  border-color: rgb(64, 182, 225);
+  background-color:  rgb(64, 182, 225);
+}
+
+.dragon {
+  border-color: rgb(96, 69, 232);
+  background-color:  rgb(96, 69, 232);
+}
+
+.poison {
+  border-color: rgb(112, 33, 202);
+  background-color: rgb(112, 33, 202);
+}
+
+.paralyze {
+  border-color: rgb(215, 183, 0);
+  background-color: rgb(215, 183, 0);
+}
+
+.sleep {
+  border-color: rgb(95, 158, 160);
+  background-color: rgb(95, 158, 160);
+}
+
+.explosion {
+  border-color: rgb(217, 102, 2);
+  background-color: rgb(217, 102, 2);
+}
+
+.none {
+  border-color: rgb(105, 105, 105);
+  background-color: rgb(105, 105, 105);
+}

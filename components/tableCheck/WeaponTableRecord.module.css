@@ -1,0 +1,43 @@
+.box {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(9vw, 9vw));
+
+  padding: 10px;
+  gap: 10px;
+
+  border-radius: 10px;
+
+  background-color: rgb(187, 191, 202);
+}
+
+.weaponButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 5px;
+
+  font-size: 1.5vw;
+}
+
+.advanceSet {
+  background: rgb(232, 232, 232);
+  color: rgb(10, 10, 10);
+  cursor: pointer;
+}
+
+.advanceSet:hover {
+  background-color: rgb(100, 100, 100);
+  color: rgb(232, 232, 232);
+}
+
+.advanceUnSet {
+  background: rgb(187, 191, 202);
+  color: rgb(73, 84, 100);
+  cursor: default;
+}
+
+.selectedWeapon {
+  background-color: rgb(73, 84, 100);
+  color: rgb(232, 232, 232);
+}

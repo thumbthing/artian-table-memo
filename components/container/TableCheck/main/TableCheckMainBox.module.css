@@ -1,0 +1,33 @@
+.box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* align-items: center; */
+
+  height: 100%;
+  width: 100%;
+
+  margin: 1vh;
+  padding: 1vh;
+  gap: 2vh;
+
+  background-color: rgb(187, 191, 202);
+}
+
+.recordTableSelectBox{
+  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+
+  width: 40vw;
+
+  border-radius: 10px;
+
+  background-color: rgb(73, 84, 100);
+}
+
+.record {
+
+}
