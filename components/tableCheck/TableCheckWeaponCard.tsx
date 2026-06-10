@@ -25,7 +25,7 @@ export default function TableCheckCard({
   const elementList = getTypedObjectKeys(weaponAdvanceSetting.advanceSetting)
 
   return (
-    <div className={style.box} onClick={e => e.stopPropagation()}>
+    <div className={style.box}>
       <h3 className={style.weaponName}>{weaponAdvanceSetting.weapon}</h3>
       <svg className={style.deActivateButton} viewBox="0 0 100 100" onClick={() => dispatchSetState(undefined)}>
         <path d="M 10 10 l 80 80 m -80 0 l 80 -80"/>

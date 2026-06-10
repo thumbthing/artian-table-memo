@@ -9,7 +9,7 @@
 
   border-radius: 10px;
 
-  background-color: rgb(232, 232, 232);
+  background-color: rgb(187, 191, 202);
 }
 
 .weaponName {
@@ -48,12 +48,12 @@
   grid-template-columns: repeat(5, 1fr);
   grid-column-gap: 1px;
 
+  position: relative;
+
   gap: 0.5vh;
   padding: 1vh;
 
   border-radius: 0 0 10px 10px;
-
-  background-color: rgb(187, 191, 202);
 }
 
 
@@ -71,7 +71,7 @@
   min-width: 6vw;
 
   border: solid 3px;
-  border-radius: 4px;
+  border-radius: 5px;
 
   cursor: pointer;
   

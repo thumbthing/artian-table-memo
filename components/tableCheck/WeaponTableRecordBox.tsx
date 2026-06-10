@@ -22,32 +22,39 @@ export default function WeaponTableRecordBox() {
   const weaponAdvanceSetting = getAdvanceWeaponObject(weaponList, weaponSetting);
   
   return (
-    <>
-      {selectedWeaponAdvanceSetting !== undefined && 
-        <TableCheckCard 
+    <div className={style.box}>
+      <div className={style.selectedWeaponBox}>
+        {selectedWeaponAdvanceSetting !== undefined && 
+          <TableCheckCard 
           weaponAdvanceSetting={selectedWeaponAdvanceSetting}
           dispatchSetState={setSelectedWeaponAdvanceSetting}
-        />
-      }
-      <p>무기 목록</p>
-      <div className={style.box}>
-        {WEAPON_LIST.map((weapon, index) => 
-          <div 
-            className={`${style.weaponButton} ${weaponList.includes(weapon) ? style.advanceSet : style.advanceUnSet} ${selectedWeaponAdvanceSetting?.weapon === weapon && style.selectedWeapon}`} 
-            key={`record-select-button-${weapon}-${index}`}
-            onClick={() => setSelectedWeaponAdvanceSetting(prev => {
-              if (weaponAdvanceSetting[weapon] === undefined) return prev;
-              if (prev?.weapon === weapon) return prev;
-              return {
-                weapon : weapon,
-                advanceSetting: weaponAdvanceSetting[weapon]
-              }
-            })}
-          >
-            {weapon}
-          </div>
-        )}
+          />
+        }
       </div>
-    </>
+      <div className={style.tableRecordInputSelectBox}>
+        <div className={style.weaponListbox}>
+          {WEAPON_LIST.map((weapon, index) => 
+            <div 
+              className={`${style.weaponButton} ${weaponList.includes(weapon) ? style.advanceSet : style.advanceUnSet} ${selectedWeaponAdvanceSetting?.weapon === weapon && style.selectedWeapon}`} 
+              key={`record-select-button-${weapon}-${index}`}
+              onClick={() => setSelectedWeaponAdvanceSetting(prev => {
+                if (weaponAdvanceSetting[weapon] === undefined) return prev;
+                if (prev?.weapon === weapon) return undefined;
+                return {
+                  weapon : weapon,
+                  advanceSetting: weaponAdvanceSetting[weapon]
+                }
+              })}
+            >
+              {weapon}
+            </div>
+          )}
+        </div>
+        <div className={style.tableInputPortalButton}>
+          asdf
+        </div>
+      </div>
+      
+    </div>
   )
 }
