@@ -162,7 +162,7 @@ export const weaponSetting: WeaponAdvanceSettingType = {
     "폭파": { attack: false, affinity: false, element: false },
     "무": { attack: false, affinity: false, element: false },
   },
-  "해비보우건": {
+  "헤비보우건": {
     "불": { attack: false, affinity: false, element: false },
     "물": { attack: false, affinity: false, element: false },
     "번개": { attack: false, affinity: false, element: false },
