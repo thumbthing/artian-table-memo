@@ -13,7 +13,7 @@ export const WEAPON_LIST: WeaponType[] = [
                                             "랜스", "건랜스",
                                             "슬래시액스", "차지액스",
                                             "조충곤", "라이트보우건",
-                                            "해비보우건", "활"
+                                            "헤비보우건", "활"
                                           ];
 
 export const WEAPON_CODE: WeaponCodeType[] = [
