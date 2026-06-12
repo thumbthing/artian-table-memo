@@ -104,3 +104,8 @@
 
   color: rgb(10, 10, 10);
 }
+
+.tableInputPortalButton:hover {
+  background-color: rgb(232, 232, 232);
+  color: rgb(73, 84, 100);
+}
