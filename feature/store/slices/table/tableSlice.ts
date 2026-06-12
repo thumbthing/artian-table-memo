@@ -105,6 +105,10 @@ export const tableSlice = createSlice({
       state.tableRecordList = state.tableRecordList.concat(action.payload);
     },
 
+    addTableRecordList: (state, action: PayloadAction<TableRecordType[]>) => {
+      state.tableRecordList = state.tableRecordList.concat(action.payload);
+    },
+
     removeTableRecord: (state, action: PayloadAction<number>) => {
       state.tableRecordList = state.tableRecordList.toSpliced(action.payload, 1);
     },
@@ -157,6 +161,7 @@ export const {
   resetAllGroupSkillState,
   getDefaultRecordState, 
   addTableRecord, 
+  addTableRecordList,
   removeTableRecord,
   sortTableRecord, 
   increaseCount, 
