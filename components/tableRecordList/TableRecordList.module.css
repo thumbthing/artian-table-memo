@@ -35,6 +35,23 @@
     color: rgb(232, 232, 232);
   }
 
+
+
+  p {
+    padding-bottom: 10px;
+    font-size: 1.5vh;
+    color: rgb(232, 232, 232);
+  }
+}
+
+.recordButtonBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+
   div {
     margin: 0;
     padding: 0.5vh;
@@ -45,17 +62,13 @@
     background-color: rgb(187, 191, 202);
 
     color: rgb(73, 84, 100);
+
+    cursor: pointer;
   }
   
   div:hover {
     background-color: rgb(232, 232, 232);
     color: rgb(10, 10, 10);
-  }
-
-  p {
-    padding-bottom: 10px;
-    font-size: 1.5vh;
-    color: rgb(232, 232, 232);
   }
 }
 
@@ -66,6 +79,7 @@
   align-items: center;
 
   margin-top: 13vh;
+
 
 }
 

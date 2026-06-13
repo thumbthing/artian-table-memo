@@ -6,6 +6,7 @@ import { removeTableRecord, setIsRecordListOnView } from "@/feature/store/slices
 import { Fragment } from "react/jsx-runtime";
 import { TableRecordType } from "@/global/type/extendedType";
 import RecordListPortal from "../portal/recordList/RecordListPortal";
+import useTableRecordString from "@/feature/hook/useTableRecordString";
 
 interface TableRecordProps {
   tableRecord: TableRecordType,
@@ -35,15 +36,26 @@ function TableRecord({tableRecord, index}: TableRecordProps) {
 export default function TableRecordList() {
   const recordList = useAppSelector(state => state.table.tableRecordList);
   const isRecordListOnView = useAppSelector(state => state.table.isRecordListOnView);
-
+  
+  const recordString = useTableRecordString();
+  
   const dispatch = useAppDispatch();
 
+  const copyRecordListToClipBoard = async () => {
+    await navigator.clipboard.writeText(recordString);
+    return alert("테이블 기록이 클립보드에 저장되었습니다.")
+  }
+
+  
   return (
     <Fragment>
       <div className={style.box}>
         <div className={style.recordListHeader}>
           <h3>확인된 테이블</h3>
-          <div onClick={() => dispatch(setIsRecordListOnView(true))}>전체 목록 확인</div>
+          <div className={style.recordButtonBox}>
+            <div onClick={() => dispatch(setIsRecordListOnView(true))}>전체 기록 확인</div>
+            <div onClick={() => copyRecordListToClipBoard()}>클립 보드에 저장</div>
+          </div>
           <p>삭제할 기록은 클릭으로 삭제</p>
         </div>
         <div className={style.recordBox}>
