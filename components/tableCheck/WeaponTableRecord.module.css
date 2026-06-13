@@ -7,7 +7,7 @@
   position: relative;
 
   width: 40vw;
-  height: 60vh;
+  height: 65vh;
 
   border-radius: 10px;
 
@@ -16,16 +16,18 @@
 
 .selectedWeaponBox {
   position: absolute;
-  top: 10px;
+  top: 1.5vh;
   
   width: 100%;
+  /* height: 20vh; */
   
   border-radius: 10px;
 
-  /* background-color: rgb(187, 191, 202); */
+  /* background-color: rgb(232, 232, 232); */
 }
 
 .tableRecordInputSelectBox {
+  /* flex: 3; */
   display: flex;
   flex-direction: row;
 
